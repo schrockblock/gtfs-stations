@@ -8,11 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		496C47FD1B2900C70032FE1C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496C47FC1B2900C70032FE1C /* AppDelegate.swift */; };
-		496C47FF1B2900C70032FE1C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496C47FE1B2900C70032FE1C /* ViewController.swift */; };
-		496C48021B2900C70032FE1C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 496C48001B2900C70032FE1C /* Main.storyboard */; };
 		496C48041B2900C70032FE1C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 496C48031B2900C70032FE1C /* Images.xcassets */; };
 		496C48071B2900C70032FE1C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 496C48051B2900C70032FE1C /* LaunchScreen.xib */; };
-		496C48131B2900C70032FE1C /* GTFS_StationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496C48121B2900C70032FE1C /* GTFS_StationsTests.swift */; };
+		496C481E1B2902170032FE1C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496C481C1B2902170032FE1C /* ViewController.swift */; };
+		496C481F1B2902170032FE1C /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 496C481D1B2902170032FE1C /* ViewController.xib */; };
+		496C48211B29086F0032FE1C /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496C48201B29086F0032FE1C /* Station.swift */; };
+		496C48221B29086F0032FE1C /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496C48201B29086F0032FE1C /* Station.swift */; };
+		496C48261B290DC50032FE1C /* Prediction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496C48251B290DC50032FE1C /* Prediction.swift */; };
+		496C48271B290DC90032FE1C /* Prediction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496C48251B290DC50032FE1C /* Prediction.swift */; };
+		496C48291B290DE80032FE1C /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496C48281B290DE80032FE1C /* Route.swift */; };
+		49D0A5381B2C824E00CBC8D4 /* StationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D0A5371B2C824E00CBC8D4 /* StationManager.swift */; };
+		49D0A5391B2C824E00CBC8D4 /* StationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D0A5371B2C824E00CBC8D4 /* StationManager.swift */; };
+		49D0A53B1B2C83CC00CBC8D4 /* StationManagerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D0A53A1B2C83CC00CBC8D4 /* StationManagerSpec.swift */; };
+		49D0A53C1B2CA75800CBC8D4 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496C48281B290DE80032FE1C /* Route.swift */; };
+		F7D25F84A21AE531B667FCCF /* Pods_GTFS_StationsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D416998224C4A08BFBCE84CC /* Pods_GTFS_StationsTests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,13 +38,20 @@
 		496C47F71B2900C70032FE1C /* GTFS Stations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GTFS Stations.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		496C47FB1B2900C70032FE1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		496C47FC1B2900C70032FE1C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		496C47FE1B2900C70032FE1C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		496C48011B2900C70032FE1C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		496C48031B2900C70032FE1C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		496C48061B2900C70032FE1C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		496C480C1B2900C70032FE1C /* GTFS StationsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GTFS StationsTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		496C48111B2900C70032FE1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		496C48121B2900C70032FE1C /* GTFS_StationsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTFS_StationsTests.swift; sourceTree = "<group>"; };
+		496C481C1B2902170032FE1C /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		496C481D1B2902170032FE1C /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
+		496C48201B29086F0032FE1C /* Station.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
+		496C48251B290DC50032FE1C /* Prediction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Prediction.swift; sourceTree = "<group>"; };
+		496C48281B290DE80032FE1C /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		49D0A5371B2C824E00CBC8D4 /* StationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationManager.swift; sourceTree = "<group>"; };
+		49D0A53A1B2C83CC00CBC8D4 /* StationManagerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationManagerSpec.swift; sourceTree = "<group>"; };
+		D14EA386148F3FDF10ABA7BB /* Pods-GTFS StationsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GTFS StationsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GTFS StationsTests/Pods-GTFS StationsTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D416998224C4A08BFBCE84CC /* Pods_GTFS_StationsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GTFS_StationsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EEFD5B706BB21D52BF593C36 /* Pods-GTFS StationsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GTFS StationsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GTFS StationsTests/Pods-GTFS StationsTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,18 +66,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7D25F84A21AE531B667FCCF /* Pods_GTFS_StationsTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		357A772B3EE0A7DE0A770BF9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D416998224C4A08BFBCE84CC /* Pods_GTFS_StationsTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		496C47EE1B2900C70032FE1C = {
 			isa = PBXGroup;
 			children = (
 				496C47F91B2900C70032FE1C /* GTFS Stations */,
 				496C480F1B2900C70032FE1C /* GTFS StationsTests */,
 				496C47F81B2900C70032FE1C /* Products */,
+				6ADBAE264B05AEF17184D4ED /* Pods */,
+				357A772B3EE0A7DE0A770BF9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -77,9 +104,9 @@
 		496C47F91B2900C70032FE1C /* GTFS Stations */ = {
 			isa = PBXGroup;
 			children = (
+				496C48241B290DAB0032FE1C /* Controllers */,
+				496C48231B290DA40032FE1C /* Models */,
 				496C47FC1B2900C70032FE1C /* AppDelegate.swift */,
-				496C47FE1B2900C70032FE1C /* ViewController.swift */,
-				496C48001B2900C70032FE1C /* Main.storyboard */,
 				496C48031B2900C70032FE1C /* Images.xcassets */,
 				496C48051B2900C70032FE1C /* LaunchScreen.xib */,
 				496C47FA1B2900C70032FE1C /* Supporting Files */,
@@ -98,7 +125,7 @@
 		496C480F1B2900C70032FE1C /* GTFS StationsTests */ = {
 			isa = PBXGroup;
 			children = (
-				496C48121B2900C70032FE1C /* GTFS_StationsTests.swift */,
+				49D0A53A1B2C83CC00CBC8D4 /* StationManagerSpec.swift */,
 				496C48101B2900C70032FE1C /* Supporting Files */,
 			);
 			path = "GTFS StationsTests";
@@ -110,6 +137,35 @@
 				496C48111B2900C70032FE1C /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		496C48231B290DA40032FE1C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				49D0A5371B2C824E00CBC8D4 /* StationManager.swift */,
+				496C48201B29086F0032FE1C /* Station.swift */,
+				496C48251B290DC50032FE1C /* Prediction.swift */,
+				496C48281B290DE80032FE1C /* Route.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		496C48241B290DAB0032FE1C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				496C481C1B2902170032FE1C /* ViewController.swift */,
+				496C481D1B2902170032FE1C /* ViewController.xib */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		6ADBAE264B05AEF17184D4ED /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D14EA386148F3FDF10ABA7BB /* Pods-GTFS StationsTests.debug.xcconfig */,
+				EEFD5B706BB21D52BF593C36 /* Pods-GTFS StationsTests.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,9 +192,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 496C48191B2900C70032FE1C /* Build configuration list for PBXNativeTarget "GTFS StationsTests" */;
 			buildPhases = (
+				1A1CF2D472110B9415259597 /* Check Pods Manifest.lock */,
 				496C48081B2900C70032FE1C /* Sources */,
 				496C48091B2900C70032FE1C /* Frameworks */,
 				496C480A1B2900C70032FE1C /* Resources */,
+				538C96A221004CBD545CD3B2 /* Embed Pods Frameworks */,
+				A459C1BF84E1484FEE3C755C /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -192,8 +251,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				496C48021B2900C70032FE1C /* Main.storyboard in Resources */,
 				496C48071B2900C70032FE1C /* LaunchScreen.xib in Resources */,
+				496C481F1B2902170032FE1C /* ViewController.xib in Resources */,
 				496C48041B2900C70032FE1C /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -207,12 +266,64 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1A1CF2D472110B9415259597 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		538C96A221004CBD545CD3B2 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GTFS StationsTests/Pods-GTFS StationsTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A459C1BF84E1484FEE3C755C /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GTFS StationsTests/Pods-GTFS StationsTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		496C47F31B2900C70032FE1C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				496C47FF1B2900C70032FE1C /* ViewController.swift in Sources */,
+				496C48261B290DC50032FE1C /* Prediction.swift in Sources */,
+				496C481E1B2902170032FE1C /* ViewController.swift in Sources */,
+				49D0A5381B2C824E00CBC8D4 /* StationManager.swift in Sources */,
+				496C48211B29086F0032FE1C /* Station.swift in Sources */,
+				496C48291B290DE80032FE1C /* Route.swift in Sources */,
 				496C47FD1B2900C70032FE1C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -221,7 +332,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				496C48131B2900C70032FE1C /* GTFS_StationsTests.swift in Sources */,
+				49D0A5391B2C824E00CBC8D4 /* StationManager.swift in Sources */,
+				49D0A53B1B2C83CC00CBC8D4 /* StationManagerSpec.swift in Sources */,
+				496C48221B29086F0032FE1C /* Station.swift in Sources */,
+				49D0A53C1B2CA75800CBC8D4 /* Route.swift in Sources */,
+				496C48271B290DC90032FE1C /* Prediction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,14 +351,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		496C48001B2900C70032FE1C /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				496C48011B2900C70032FE1C /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		496C48051B2900C70032FE1C /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -358,6 +465,7 @@
 		};
 		496C481A1B2900C70032FE1C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D14EA386148F3FDF10ABA7BB /* Pods-GTFS StationsTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -377,6 +485,7 @@
 		};
 		496C481B1B2900C70032FE1C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EEFD5B706BB21D52BF593C36 /* Pods-GTFS StationsTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -409,6 +518,7 @@
 				496C48181B2900C70032FE1C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		496C48191B2900C70032FE1C /* Build configuration list for PBXNativeTarget "GTFS StationsTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +527,7 @@
 				496C481B1B2900C70032FE1C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
