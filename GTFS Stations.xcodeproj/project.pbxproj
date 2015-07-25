@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49480B211B63EC0D00ECF581 /* gtfs.db in Resources */ = {isa = PBXBuildFile; fileRef = 49480B201B63EC0D00ECF581 /* gtfs.db */; };
+		49480B221B63EC0D00ECF581 /* gtfs.db in Resources */ = {isa = PBXBuildFile; fileRef = 49480B201B63EC0D00ECF581 /* gtfs.db */; };
 		496C47FD1B2900C70032FE1C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496C47FC1B2900C70032FE1C /* AppDelegate.swift */; };
 		496C48041B2900C70032FE1C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 496C48031B2900C70032FE1C /* Images.xcassets */; };
 		496C48071B2900C70032FE1C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 496C48051B2900C70032FE1C /* LaunchScreen.xib */; };
@@ -35,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		49480B201B63EC0D00ECF581 /* gtfs.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = gtfs.db; sourceTree = "<group>"; };
 		496C47F71B2900C70032FE1C /* GTFS Stations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GTFS Stations.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		496C47FB1B2900C70032FE1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		496C47FC1B2900C70032FE1C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -117,6 +120,7 @@
 		496C47FA1B2900C70032FE1C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				49480B201B63EC0D00ECF581 /* gtfs.db */,
 				496C47FB1B2900C70032FE1C /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -254,6 +258,7 @@
 				496C48071B2900C70032FE1C /* LaunchScreen.xib in Resources */,
 				496C481F1B2902170032FE1C /* ViewController.xib in Resources */,
 				496C48041B2900C70032FE1C /* Images.xcassets in Resources */,
+				49480B211B63EC0D00ECF581 /* gtfs.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +266,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49480B221B63EC0D00ECF581 /* gtfs.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

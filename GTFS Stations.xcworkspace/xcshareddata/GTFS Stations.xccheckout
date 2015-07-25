@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>A7CCDF90-41AC-4035-A71C-FE192718E7C1</string>
+	<key>IDESourceControlProjectName</key>
+	<string>GTFS Stations</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>6B9EF1ECAA3078F704279A6BA391E808C4111A59</key>
+		<string>github.com:schrockblock/gtfs-stations.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>GTFS Stations.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>6B9EF1ECAA3078F704279A6BA391E808C4111A59</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:schrockblock/gtfs-stations.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>6B9EF1ECAA3078F704279A6BA391E808C4111A59</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>6B9EF1ECAA3078F704279A6BA391E808C4111A59</string>
+			<key>IDESourceControlWCCName</key>
+			<string>GTFS%20Stations</string>
+		</dict>
+	</array>
+</dict>
+</plist>
