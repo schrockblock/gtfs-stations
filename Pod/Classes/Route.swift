@@ -10,5 +10,12 @@ import UIKit
 
 class Route: NSObject {
     var color: UIColor!
-    var identifier: String!
+    var objectId: String!
+    
+    init(objectId: String!) {
+        super.init()
+        self.objectId = objectId
+        
+        
+    }
 }

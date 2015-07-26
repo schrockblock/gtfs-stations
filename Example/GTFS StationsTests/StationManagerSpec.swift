@@ -17,7 +17,7 @@ class StationManagerSpec: QuickSpec {
             var allStations: Array<Station>?
             
             beforeSuite {
-                allStations = stationManager.allStations()
+                allStations = stationManager.allStations
             }
             
             it("can find stations based on name") {
@@ -28,7 +28,8 @@ class StationManagerSpec: QuickSpec {
                     var hasColumbusCircle: Bool = false
                     for station in stations {
                         if let name = station.name {
-                            if (name.hasPrefix("Columbus Circle")) {
+                            let isColumbus: String = name.hasPrefix("59 St") ? "true" : "false"
+                            if (name.hasPrefix("59 St")) {
                                 hasColumbusCircle = true
                             }
                         }
@@ -49,30 +50,37 @@ class StationManagerSpec: QuickSpec {
                     for station in stations {
                         expect(station.name).toNot(beNil())
                     }
+                }else{
+                    expect(false).to(beTruthy());
                 }
             }
             
             it("has stations which all have predictions") {
                 if let stations = allStations {
                     for station in stations {
-                        var stationPredictions: Array<Prediction>? = station.predictionsForTime(NSDate(timeIntervalSince1970:1434217843))
+                        let date = NSDate(timeIntervalSince1970:1434217843)
+                        var stationPredictions: Array<Prediction>? = stationManager.predictions(station, time: date)
                         expect(stationPredictions).toNot(beNil())
                         if let predictions = stationPredictions {
-                            expect(predictions.count).toNot(beTruthy())
+                            expect(predictions.count > 0).to(beTruthy())
                             if predictions.count != 0 {
                                 let prediction: Prediction = predictions[0]
                                 expect(prediction.timeOfArrival).toNot(beNil())
                                 expect(prediction.secondsToArrival).toNot(beNil())
-                                expect(prediction.secondsToArrival > 0).to(beTruthy())
+                                expect(prediction.timeOfArrival?.timeIntervalSinceDate(date) < 20 * 60).to(beTruthy())
                                 expect(prediction.direction).toNot(beNil())
                                 expect(prediction.route).toNot(beNil())
                                 if let route = prediction.route {
                                     expect(route.color).toNot(beNil())
-                                    expect(route.identifier).toNot(beNil())
+                                    expect(route.objectId).toNot(beNil())
                                 }
+                            }else{
+                                println(station.name)
                             }
                         }
                     }
+                }else{
+                    expect(false).to(beTruthy())
                 }
             }
         })

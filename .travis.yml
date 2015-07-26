@@ -1,0 +1,12 @@
+# reference: http://www.objc.io/issue-6/travis-ci.html
+
+language: swift
+before_install: 
+  - gem install cocoapods
+  - if brew outdated | grep -qx xctool; then brew upgrade xctool; fi
+  - cd Example
+  - pod install
+  - cd ..
+xcode_workspace: Example/GTFS Stations.xcworkspace 
+xcode_scheme: GTFS StationsTests
+xcode_sdk: iphonesimulator8.1

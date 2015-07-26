@@ -14,11 +14,11 @@
 		<string>github.com:schrockblock/gtfs-stations.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>GTFS Stations.xcworkspace</string>
+	<string>Example/GTFS Stations.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>6B9EF1ECAA3078F704279A6BA391E808C4111A59</key>
-		<string>..</string>
+		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>github.com:schrockblock/gtfs-stations.git</string>
@@ -34,7 +34,7 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>6B9EF1ECAA3078F704279A6BA391E808C4111A59</string>
 			<key>IDESourceControlWCCName</key>
-			<string>GTFS%20Stations</string>
+			<string>gtfs-stations</string>
 		</dict>
 	</array>
 </dict>
