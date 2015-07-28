@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4918315F1B673FA500EB8328 /* module.modulemap in Sources */ = {isa = PBXBuildFile; fileRef = 4918315E1B673FA500EB8328 /* module.modulemap */; };
+		491831601B673FA500EB8328 /* module.modulemap in Sources */ = {isa = PBXBuildFile; fileRef = 4918315E1B673FA500EB8328 /* module.modulemap */; };
 		496C47FD1B2900C70032FE1C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496C47FC1B2900C70032FE1C /* AppDelegate.swift */; };
 		496C48041B2900C70032FE1C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 496C48031B2900C70032FE1C /* Images.xcassets */; };
 		496C48071B2900C70032FE1C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 496C48051B2900C70032FE1C /* LaunchScreen.xib */; };
@@ -59,6 +61,7 @@
 
 /* Begin PBXFileReference section */
 		10377CAB0912A0335C7CEC84 /* Pods-GTFS Stations.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GTFS Stations.release.xcconfig"; path = "Pods/Target Support Files/Pods-GTFS Stations/Pods-GTFS Stations.release.xcconfig"; sourceTree = "<group>"; };
+		4918315E1B673FA500EB8328 /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; name = module.modulemap; path = ../../Pod/Classes/module.modulemap; sourceTree = "<group>"; };
 		496C47F71B2900C70032FE1C /* GTFS Stations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GTFS Stations.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		496C47FB1B2900C70032FE1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		496C47FC1B2900C70032FE1C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -161,6 +164,7 @@
 				496C48231B290DA40032FE1C /* Models */,
 				496C47FC1B2900C70032FE1C /* AppDelegate.swift */,
 				496C48031B2900C70032FE1C /* Images.xcassets */,
+				4918315E1B673FA500EB8328 /* module.modulemap */,
 				496C48051B2900C70032FE1C /* LaunchScreen.xib */,
 				496C47FA1B2900C70032FE1C /* Supporting Files */,
 				498EE4FD1B65570C00ACB842 /* GTFS Stations-Bridging-Header.h */,
@@ -465,6 +469,7 @@
 				498EE4F71B6556E000ACB842 /* Station.swift in Sources */,
 				498EE5131B6557AB00ACB842 /* FMDatabaseQueue.m in Sources */,
 				498EE4F11B6556E000ACB842 /* Prediction.swift in Sources */,
+				4918315F1B673FA500EB8328 /* module.modulemap in Sources */,
 				498EE4F51B6556E000ACB842 /* RouteColorManager.swift in Sources */,
 				498EE4F31B6556E000ACB842 /* Route.swift in Sources */,
 				498EE4EF1B6556E000ACB842 /* DBManager.swift in Sources */,
@@ -484,6 +489,7 @@
 				498EE50E1B6557AB00ACB842 /* FMDatabase.m in Sources */,
 				498EE5161B6557AB00ACB842 /* FMResultSet.m in Sources */,
 				498EE5101B6557AB00ACB842 /* FMDatabaseAdditions.m in Sources */,
+				491831601B673FA500EB8328 /* module.modulemap in Sources */,
 				498EE4F41B6556E000ACB842 /* Route.swift in Sources */,
 				498EE4F81B6556E000ACB842 /* Station.swift in Sources */,
 				498EE4F61B6556E000ACB842 /* RouteColorManager.swift in Sources */,

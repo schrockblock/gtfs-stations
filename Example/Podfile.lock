@@ -1,16 +1,20 @@
 PODS:
+  - GTFSStations (0.0.1)
   - Nimble (1.0.0)
   - Quick (0.3.1)
-  - SBCategories (0.1.1)
 
 DEPENDENCIES:
+  - GTFSStations (from `../`)
   - Nimble (~> 1.0.0)
   - Quick (~> 0.3.1)
-  - SBCategories
+
+EXTERNAL SOURCES:
+  GTFSStations:
+    :path: ../
 
 SPEC CHECKSUMS:
+  GTFSStations: 8a83a88bc4ade14c535ee7e071dbab4170b6e212
   Nimble: 8bee528e5fcc403653076545db562d2b5db7bb87
   Quick: 824572d3d198d51e52cf4aa722cebf7e59952a35
-  SBCategories: a2a126ee06eeacaac02d5e68533cd9de1b9bf1cc
 
-COCOAPODS: 0.38.1
+COCOAPODS: 0.38.2
