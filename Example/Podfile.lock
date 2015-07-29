@@ -1,20 +1,35 @@
 PODS:
-  - GTFSStations (0.0.1)
+  - GTFSStations (0.0.1):
+    - SQLite.swift
   - Nimble (1.0.0)
   - Quick (0.3.1)
+  - SQLite.swift (0.1.0.pre):
+    - SQLite.swift/Library (= 0.1.0.pre)
+  - SQLite.swift/Core (0.1.0.pre)
+  - SQLite.swift/Library (0.1.0.pre):
+    - SQLite.swift/Core
 
 DEPENDENCIES:
   - GTFSStations (from `../`)
   - Nimble (~> 1.0.0)
   - Quick (~> 0.3.1)
+  - SQLite.swift (from `https://github.com/stephencelis/SQLite.swift.git`)
 
 EXTERNAL SOURCES:
   GTFSStations:
     :path: ../
+  SQLite.swift:
+    :git: https://github.com/stephencelis/SQLite.swift.git
+
+CHECKOUT OPTIONS:
+  SQLite.swift:
+    :commit: 89d16192bb73bf179c08c30227fbd9e52be6bf32
+    :git: https://github.com/stephencelis/SQLite.swift.git
 
 SPEC CHECKSUMS:
-  GTFSStations: 8a83a88bc4ade14c535ee7e071dbab4170b6e212
+  GTFSStations: 32daf1cc7914b1c0319da972164f73e66f622a7a
   Nimble: 8bee528e5fcc403653076545db562d2b5db7bb87
   Quick: 824572d3d198d51e52cf4aa722cebf7e59952a35
+  SQLite.swift: 62bdf79b05b2a88b94d4b8f9a3b7aa94bfedc660
 
 COCOAPODS: 0.38.2

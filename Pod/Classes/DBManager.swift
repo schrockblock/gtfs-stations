@@ -7,14 +7,15 @@
 //
 
 import UIKit
+import SQLite
 
 class DBManager: NSObject {
     var filename: String!
     var documentsDirectory: String {
         return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
     }
-    lazy var database: FMDatabase = {
-        let lazyDatabase = FMDatabase(path: self.documentsDirectory + "/" + self.filename)
+    lazy var database: Database = {
+        let lazyDatabase = Database(self.documentsDirectory + "/" + self.filename)
         return lazyDatabase
     }()
     

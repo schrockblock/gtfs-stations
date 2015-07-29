@@ -3,6 +3,7 @@ platform :ios, '7.0'
 use_frameworks!
 
 target 'GTFS Stations' do
+    pod 'SQLite.swift', git: 'https://github.com/stephencelis/SQLite.swift.git'
     pod "GTFSStations", :path => "../"
 end
 

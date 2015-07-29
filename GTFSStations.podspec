@@ -20,14 +20,13 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/schrockblock/gtfs-stations.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/schrockblock'
 
-  s.platform     = :ios, '7.0'
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes/**/*.{h,m,swift}'
-  s.library = 'sqlite3'
-  s.module_map = 'Pod/Classes/module.modulemap'
+  #s.public_header_files = 'Pod/Classes/*.h'
+  #s.private_header_files = 'Pod/Classes/fmdb/*.h'
+  #s.library = 'sqlite3'
+  #s.module_map = 'Pod/Classes/module.modulemap'
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'SQLite.swift'
 end

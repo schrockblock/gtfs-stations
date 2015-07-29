@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SQLite
 
 class StationManager: NSObject {
     var filename = "gtfs.db"
@@ -21,40 +22,28 @@ class StationManager: NSObject {
     override init() {
         super.init()
         
-        dbManager.database.open()
-        
-        let stopsQuery = "SELECT * FROM stops"
-        var results: FMResultSet? = dbManager.database.executeQuery(stopsQuery, withArgumentsInArray: [])
-        if let stopsResults = results {
-            while stopsResults.next() {
-                let stop = Stop(name: stopsResults.stringForColumn("stop_name"), objectId: stopsResults.stringForColumn("stop_id"), parentId: stopsResults.stringForColumn("parent_station"))
-                if stop.parentId != "" {
-                    var station: Station = Station(objectId: stop.parentId)
-                    if contains(allStations, station) {
-                        let index = find(allStations, station)
-                        if let stationIndex = index {
-                            allStations[stationIndex].stops.append(stop)
-                        }
+        for stopRow in dbManager.database.prepare("SELECT stop_name, stop_id, parent_station FROM stops") {
+            let stop = Stop(name: stopRow[0] as! String, objectId: stopRow[1] as! String, parentId: stopRow[2] as? String)
+            if stop.parentId != "" {
+                var station: Station = Station(objectId: stop.parentId)
+                if contains(allStations, station) {
+                    let index = find(allStations, station)
+                    if let stationIndex = index {
+                        allStations[stationIndex].stops.append(stop)
                     }
-                }else{
-                    var station = Station(objectId: stop.objectId)
-                    station.name = stop.name
-                    allStations.append(station)
                 }
+            }else{
+                var station = Station(objectId: stop.objectId)
+                station.name = stop.name
+                allStations.append(station)
             }
         }
         
-        let routesQuery = "SELECT * FROM routes"
-        results = dbManager.database.executeQuery(routesQuery, withArgumentsInArray: [])
-        if let routesResults = results {
-            while routesResults.next() {
-                let route = Route(objectId: routesResults.stringForColumn("route_id"))
-                route.color = RouteColorManager.colorForRouteId(route.objectId)
-                routes.append(route)
-            }
+        for routeRow in dbManager.database.prepare("SELECT route_id FROM routes") {
+            let route = Route(objectId: routeRow[0] as! String)
+            route.color = RouteColorManager.colorForRouteId(route.objectId)
+            routes.append(route)
         }
-        
-        dbManager.database.close()
     }
     
     func stationsForSearchString(stationName: String!) -> Array<Station>? {
@@ -95,39 +84,29 @@ class StationManager: NSObject {
     func predictions(station: Station!, time: NSDate!) -> Array<Prediction>{
         var predictions = Array<Prediction>()
         
-        dbManager.database.open()
-        
-        let timesQuery = "SELECT * FROM stop_times WHERE stop_id IN (" + questionMarksForStopArray(station.stops)! + ") AND departure_time BETWEEN ? AND ?"
-        var stopIds = station.stops.map({ (stop: Stop) -> String in
-            stop.objectId
+        let timesQuery = "SELECT trip_id, departure_time FROM stop_times WHERE stop_id IN (" + questionMarksForStopArray(station.stops)! + ") AND departure_time BETWEEN ? AND ?"
+        var stopIds: [Binding?] = station.stops.map({ (stop: Stop) -> Binding? in
+            stop.objectId as Binding
         })
         stopIds.append(dateToTime(time))
         stopIds.append(dateToTime(time.incrementUnit(NSCalendarUnit.CalendarUnitMinute, by: timeLimitForPredictions)))
         var arguments = stopIds
-        let results: FMResultSet? = dbManager.database.executeQuery(timesQuery, withArgumentsInArray: arguments)
-        if let timeResults = results {
-            while timeResults.next() {
-                let tripId = timeResults.stringForColumn("trip_id")
-                let depTime = timeResults.stringForColumn("departure_time")
-                var prediction = Prediction(time: timeToDate(depTime, referenceDate: time))
-                
-                let tripsQuery = "SELECT * FROM trips WHERE trip_id = ?"
-                let tripsSet = dbManager.database.executeQuery(tripsQuery, withArgumentsInArray: [tripId])
-                if let tripsResults = tripsSet {
-                    while tripsResults.next() {
-                        let direction = tripsResults.intForColumn("direction_id")
-                        let routeId = tripsResults.stringForColumn("route_id")
-                        prediction.direction = direction == 0 ? .Uptown : .Downtown
-                        let routeArray = routes.filter({$0.objectId == routeId})
-                        prediction.route = routeArray[0]
-                    }
-                }
-                
-                predictions.append(prediction)
+        let stmt = dbManager.database.prepare(timesQuery)
+        for timeRow in stmt.bind(stopIds) {
+            let tripId = timeRow[0] as! String
+            let depTime = timeRow[1] as! String
+            var prediction = Prediction(time: timeToDate(depTime, referenceDate: time))
+            
+            for tripRow in dbManager.database.prepare("SELECT direction_id, route_id FROM trips WHERE trip_id = ?", [tripId]) {
+                let direction = tripRow[0] as! Int64
+                let routeId = tripRow[1] as! String
+                prediction.direction = direction == 0 ? .Uptown : .Downtown
+                let routeArray = routes.filter({$0.objectId == routeId})
+                prediction.route = routeArray[0]
             }
+            
+            predictions.append(prediction)
         }
-        
-        dbManager.database.close()
         
         return predictions
     }
