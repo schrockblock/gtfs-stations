@@ -8,22 +8,18 @@
 
 import UIKit
 
-class Station: NSObject, Equatable {
-    var objectId: String!
-    var name: String!
-    var stops: Array<Stop> = Array<Stop>()
+public class Station: NSObject, Equatable {
+    public var objectId: String!
+    public var name: String!
+    public var stops: Array<Stop> = Array<Stop>()
     
     init(objectId: String!) {
         super.init()
         self.objectId = objectId
     }
     
-    func predictionsForTime(time: NSDate!) -> Array<Prediction>? {
-        return nil
-    }
-    
 }
 
-func ==(lhs: Station, rhs: Station) -> Bool {
+public func ==(lhs: Station, rhs: Station) -> Bool {
     return lhs.objectId == rhs.objectId
 }

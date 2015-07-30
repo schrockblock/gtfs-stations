@@ -8,11 +8,11 @@
 
 import UIKit
 
-class Stop: NSObject {
-    var name: String!
+public class Stop: NSObject {
+    public var name: String!
     var objectId: String!
     var parentId: String!
-    var station: Station!
+    public var station: Station!
    
     init(name: String!, objectId: String!, parentId: String?) {
         super.init()

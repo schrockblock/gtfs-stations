@@ -9,18 +9,22 @@
 import UIKit
 import SQLite
 
-class StationManager: NSObject {
-    var filename = "gtfs.db"
+public class StationManager: NSObject {
+    public var filename = "gtfs.db"
     lazy var dbManager: DBManager = {
             let lazyManager = DBManager(filename: self.filename)
             return lazyManager
         }()
-    var allStations: Array<Station> = Array<Station>()
-    var routes: Array<Route> = Array<Route>()
-    var timeLimitForPredictions: Int32 = 20
+    public var allStations: Array<Station> = Array<Station>()
+    public var routes: Array<Route> = Array<Route>()
+    public var timeLimitForPredictions: Int32 = 20
     
-    override init() {
+    public init(filename: String?) {
         super.init()
+        
+        if let file = filename {
+            self.filename = file
+        }
         
         for stopRow in dbManager.database.prepare("SELECT stop_name, stop_id, parent_station FROM stops") {
             let stop = Stop(name: stopRow[0] as! String, objectId: stopRow[1] as! String, parentId: stopRow[2] as? String)
@@ -46,7 +50,7 @@ class StationManager: NSObject {
         }
     }
     
-    func stationsForSearchString(stationName: String!) -> Array<Station>? {
+    public func stationsForSearchString(stationName: String!) -> Array<Station>? {
         return allStations.filter({$0.name!.lowercaseString.rangeOfString(stationName.lowercaseString) != nil})
     }
     
@@ -81,7 +85,7 @@ class StationManager: NSObject {
         return qMarks
     }
     
-    func predictions(station: Station!, time: NSDate!) -> Array<Prediction>{
+    public func predictions(station: Station!, time: NSDate!) -> Array<Prediction>{
         var predictions = Array<Prediction>()
         
         let timesQuery = "SELECT trip_id, departure_time FROM stop_times WHERE stop_id IN (" + questionMarksForStopArray(station.stops)! + ") AND departure_time BETWEEN ? AND ?"

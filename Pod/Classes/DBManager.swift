@@ -9,7 +9,7 @@
 import UIKit
 import SQLite
 
-class DBManager: NSObject {
+public class DBManager: NSObject {
     var filename: String!
     var documentsDirectory: String {
         return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String

@@ -8,9 +8,9 @@
 
 import UIKit
 
-class RouteColorManager: NSObject {
+public class RouteColorManager: NSObject {
    
-    class func colorForRouteId(routeId: String!) -> UIColor {
+    public class func colorForRouteId(routeId: String!) -> UIColor {
         var color:UIColor = UIColor()
         
         if contains(["1","2","3"], routeId) {

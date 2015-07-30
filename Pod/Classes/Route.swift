@@ -8,9 +8,9 @@
 
 import UIKit
 
-class Route: NSObject {
-    var color: UIColor!
-    var objectId: String!
+public class Route: NSObject {
+    public var color: UIColor!
+    public var objectId: String!
     
     init(objectId: String!) {
         super.init()
