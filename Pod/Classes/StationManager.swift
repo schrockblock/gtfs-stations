@@ -43,6 +43,20 @@ public class StationManager: NSObject {
             }
         }
         
+        var stations = Array<Station>()
+        for station in allStations {
+            if contains(stations, station) {
+                let index = find(allStations, station)
+                if let stationIndex = index {
+                    var oldStation = allStations[stationIndex]
+                    oldStation.stops.extend(station.stops)
+                }
+            }else{
+                stations.append(station)
+            }
+        }
+        allStations = stations
+        
         for routeRow in dbManager.database.prepare("SELECT route_id FROM routes") {
             let route = Route(objectId: routeRow[0] as! String)
             route.color = RouteColorManager.colorForRouteId(route.objectId)
@@ -109,7 +123,9 @@ public class StationManager: NSObject {
                 prediction.route = routeArray[0]
             }
             
-            predictions.append(prediction)
+            if !contains(predictions, prediction) {
+                predictions.append(prediction)
+            }
         }
         
         return predictions

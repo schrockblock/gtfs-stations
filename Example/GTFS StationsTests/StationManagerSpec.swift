@@ -13,7 +13,7 @@ import Nimble
 class StationManagerSpec: QuickSpec {
     override func spec() {
         describe("StationManager", { () -> Void in
-            let stationManager: StationManager! = StationManager()
+            let stationManager: StationManager! = StationManager(filename: "gtfs.db")
             var allStations: Array<Station>?
             
             beforeSuite {
@@ -41,7 +41,8 @@ class StationManagerSpec: QuickSpec {
             it("returns all stations") {
                 expect(allStations).toNot(beNil())
                 if let stations = allStations {
-                    expect(stations.count > 400).to(beTruthy())
+                    println("count: \(stations.count)")
+                    expect(stations.count > 350).to(beTruthy())
                 }
             }
             
@@ -74,8 +75,6 @@ class StationManagerSpec: QuickSpec {
                                     expect(route.color).toNot(beNil())
                                     expect(route.objectId).toNot(beNil())
                                 }
-                            }else{
-                                println(station.name)
                             }
                         }
                     }
