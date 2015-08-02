@@ -26,9 +26,6 @@ public class StationManager: NSObject {
             self.filename = file
         }
         
-        let referenceDate = NSDate()
-        println("getting db \(NSDate().timeIntervalSinceDate(referenceDate))")
-        
         for stopRow in dbManager.database.prepare("SELECT stop_name, stop_id, parent_station FROM stops") {
             let stop = Stop(name: stopRow[0] as! String, objectId: stopRow[1] as! String, parentId: stopRow[2] as? String)
             if stop.parentId == "" {
@@ -46,15 +43,11 @@ public class StationManager: NSObject {
             }
         }
         
-        println("getting routes \(NSDate().timeIntervalSinceDate(referenceDate))")
-        
         for routeRow in dbManager.database.prepare("SELECT route_id FROM routes") {
             let route = Route(objectId: routeRow[0] as! String)
             route.color = RouteColorManager.colorForRouteId(route.objectId)
             routes.append(route)
         }
-        
-        println("finished \(NSDate().timeIntervalSinceDate(referenceDate))")
     }
     
     public func stationsForSearchString(stationName: String!) -> Array<Station>? {
