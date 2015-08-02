@@ -26,42 +26,35 @@ public class StationManager: NSObject {
             self.filename = file
         }
         
+        let referenceDate = NSDate()
+        println("getting db \(NSDate().timeIntervalSinceDate(referenceDate))")
+        
         for stopRow in dbManager.database.prepare("SELECT stop_name, stop_id, parent_station FROM stops") {
             let stop = Stop(name: stopRow[0] as! String, objectId: stopRow[1] as! String, parentId: stopRow[2] as? String)
-            if stop.parentId != "" {
-                var station: Station = Station(objectId: stop.parentId)
-                if contains(allStations, station) {
-                    let index = find(allStations, station)
-                    if let stationIndex = index {
-                        allStations[stationIndex].stops.append(stop)
-                    }
-                }
-            }else{
+            if stop.parentId == "" {
                 var station = Station(objectId: stop.objectId)
                 station.name = stop.name
-                allStations.append(station)
+                for relevantStop in dbManager.database.prepare("SELECT stop_name, stop_id FROM stops WHERE parent_station = ?", [station.objectId]){
+                    station.stops.append(Stop(name: relevantStop[0] as! String, objectId: relevantStop[1] as! String, parentId: station.objectId))
+                }
+                if let index = find(allStations, station) {
+                    var oldStation = allStations[index]
+                    oldStation.stops.extend(station.stops)
+                }else{
+                    allStations.append(station)
+                }
             }
         }
         
-        var stations = Array<Station>()
-        for station in allStations {
-            if contains(stations, station) {
-                let index = find(allStations, station)
-                if let stationIndex = index {
-                    var oldStation = allStations[stationIndex]
-                    oldStation.stops.extend(station.stops)
-                }
-            }else{
-                stations.append(station)
-            }
-        }
-        allStations = stations
+        println("getting routes \(NSDate().timeIntervalSinceDate(referenceDate))")
         
         for routeRow in dbManager.database.prepare("SELECT route_id FROM routes") {
             let route = Route(objectId: routeRow[0] as! String)
             route.color = RouteColorManager.colorForRouteId(route.objectId)
             routes.append(route)
         }
+        
+        println("finished \(NSDate().timeIntervalSinceDate(referenceDate))")
     }
     
     public func stationsForSearchString(stationName: String!) -> Array<Station>? {

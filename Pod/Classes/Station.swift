@@ -27,6 +27,10 @@ public func ==(lhs: Station, rhs: Station) -> Bool {
     
     if let lhsName = lhs.name {
         if let rhsName = rhs.name {
+            if lhsName.lowercaseString == rhsName.lowercaseString {
+                return true
+            }
+            
             let lhsArray = lhsName.lowercaseString.componentsSeparatedByString(" ")
             let rhsArray = rhsName.lowercaseString.componentsSeparatedByString(" ")
             
