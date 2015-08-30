@@ -15,30 +15,15 @@ public class DBManager: NSObject {
         return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
     }
     lazy var database: Database = {
-        let lazyDatabase = Database(self.documentsDirectory + "/" + self.filename)
+        let components = self.filename.componentsSeparatedByString(".")
+        let sourcePath = NSBundle.mainBundle().pathForResource(components[0], ofType: components[components.count - 1])
+        let lazyDatabase = Database(sourcePath!)
         return lazyDatabase
     }()
     
     init(filename: String!) {
         super.init()
         self.filename = filename
-        copyDBToDocDirectory()
-    }
-    
-    func copyDBToDocDirectory(){
-        let destinationPath = documentsDirectory + "/" + filename
-        if !NSFileManager.defaultManager().fileExistsAtPath(destinationPath) {
-            let components = filename.componentsSeparatedByString(".")
-            let sourcePath = NSBundle.mainBundle().pathForResource(components[0], ofType: components[components.count - 1])
-            var error: NSError?
-            NSFileManager.defaultManager().copyItemAtPath(sourcePath!, toPath: destinationPath, error: &error)
-            let fileUrl = NSURL(fileURLWithPath: destinationPath)
-            if let copyError = error{
-                print(copyError.debugDescription)
-            }else{
-                fileUrl?.setResourceValue(NSNumber(bool: true), forKey: NSURLIsExcludedFromBackupKey, error: &error)
-            }
-        }
     }
     
 }
