@@ -9,22 +9,17 @@
 import UIKit
 
 public class Station: NSObject, Equatable {
-    public var objectId: String!
     public var name: String!
-    public var stops: Array<Stop> = Array<Stop>()
+    public var parents: Array<Stop> = Array<Stop>()
     
-    init(objectId: String!) {
+    init(name: String!) {
         super.init()
-        self.objectId = objectId
+        self.name = name
     }
     
 }
 
 public func ==(lhs: Station, rhs: Station) -> Bool {
-    if lhs.objectId == rhs.objectId {
-        return true
-    }
-    
     if let lhsName = lhs.name {
         if let rhsName = rhs.name {
             if lhsName.lowercaseString == rhsName.lowercaseString {
