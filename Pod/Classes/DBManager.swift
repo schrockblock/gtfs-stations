@@ -10,20 +10,14 @@ import UIKit
 import SQLite
 
 public class DBManager: NSObject {
-    var filename: String!
-    var documentsDirectory: String {
-        return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
-    }
+    var sourcePath: String!
     lazy var database: Database = {
-        let components = self.filename.componentsSeparatedByString(".")
-        let sourcePath = NSBundle.mainBundle().pathForResource(components[0], ofType: components[components.count - 1])
-        let lazyDatabase = Database(sourcePath!)
+        let lazyDatabase = Database(self.sourcePath)
         return lazyDatabase
     }()
     
-    init(filename: String!) {
+    init(sourcePath: String!) {
         super.init()
-        self.filename = filename
+        self.sourcePath = sourcePath
     }
-    
 }

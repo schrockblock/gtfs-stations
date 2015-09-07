@@ -13,7 +13,8 @@ import Nimble
 class StationManagerSpec: QuickSpec {
     override func spec() {
         describe("StationManager", { () -> Void in
-            let stationManager: StationManager! = StationManager(filename: "gtfs.db")
+            let path = NSBundle.mainBundle().pathForResource("gtfs", ofType: "db")
+            let stationManager: StationManager! = StationManager(sourceFilePath: path)
             var allStations: Array<Station>?
             
             beforeSuite {

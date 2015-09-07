@@ -10,20 +10,20 @@ import UIKit
 import SQLite
 
 public class StationManager: NSObject {
-    public var filename = "gtfs.db"
+    public var sourceFilePath: String?
     lazy var dbManager: DBManager = {
-            let lazyManager = DBManager(filename: self.filename)
+            let lazyManager = DBManager(sourcePath: self.sourceFilePath)
             return lazyManager
         }()
     public var allStations: Array<Station> = Array<Station>()
     public var routes: Array<Route> = Array<Route>()
     public var timeLimitForPredictions: Int32 = 20
     
-    public init(filename: String?) {
+    public init(sourceFilePath: String?) {
         super.init()
         
-        if let file = filename {
-            self.filename = file
+        if let file = sourceFilePath {
+            self.sourceFilePath = file
         }
         
         var stationIds = Array<String>()
