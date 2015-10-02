@@ -42,7 +42,6 @@ class StationManagerSpec: QuickSpec {
             it("returns all stations") {
                 expect(allStations).toNot(beNil())
                 if let stations = allStations {
-                    println("count: \(stations.count)")
                     expect(stations.count > 350).to(beTruthy())
                 }
             }

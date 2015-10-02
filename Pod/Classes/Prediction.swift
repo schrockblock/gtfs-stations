@@ -13,7 +13,7 @@ public enum Direction: Int {
     case Downtown = 1
 }
 
-public class Prediction: NSObject, Equatable {
+public class Prediction: NSObject {
     public var secondsToArrival: Int? {
         if let arrival = timeOfArrival {
             return Int(arrival.timeIntervalSinceNow)
@@ -29,7 +29,12 @@ public class Prediction: NSObject, Equatable {
         super.init()
         timeOfArrival = time
     }
-}
-public func ==(lhs: Prediction, rhs: Prediction) -> Bool {
-    return lhs.route?.objectId == rhs.route?.objectId && lhs.timeOfArrival == rhs.timeOfArrival && lhs.direction == rhs.direction
+    
+    public override func isEqual(object: AnyObject?) -> Bool {
+        if let prediction = object as? Prediction {
+            return self.route?.objectId == prediction.route?.objectId && self.timeOfArrival == prediction.timeOfArrival && self.direction == prediction.direction
+        }else{
+            return false
+        }
+    }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class Station: NSObject, Equatable {
+public class Station: NSObject {
     public var name: String!
     public var parents: Array<Stop> = Array<Stop>()
     
@@ -31,13 +31,13 @@ public func ==(lhs: Station, rhs: Station) -> Bool {
             
             if lhsArray.count == rhsArray.count {
                 for lhsComponent in lhsArray {
-                    if !contains(rhsArray, lhsComponent){
+                    if !rhsArray.contains(lhsComponent){
                         return false
                     }
                 }
                 
                 for rhsComponent in rhsArray {
-                    if !contains(lhsArray, rhsComponent) {
+                    if !lhsArray.contains(rhsComponent) {
                         return false
                     }
                 }

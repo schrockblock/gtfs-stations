@@ -11,8 +11,8 @@ import SQLite
 
 public class DBManager: NSObject {
     var sourcePath: String!
-    lazy var database: Database = {
-        let lazyDatabase = Database(self.sourcePath)
+    lazy var database: Connection = try! {
+        let lazyDatabase = try Connection(self.sourcePath)
         return lazyDatabase
     }()
     

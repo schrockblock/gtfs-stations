@@ -27,7 +27,7 @@ class PredictionSpec: QuickSpec {
                 second.route = route
                 second.direction = .Downtown
                 
-                expect(contains([first], second)).to(beTruthy())
+                expect([first].contains(second)).to(beTruthy())
             }
         })
     }

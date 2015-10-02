@@ -29,11 +29,11 @@ public class StationManager: NSObject {
         var stationIds = Array<String>()
         for stopRow in dbManager.database.prepare("SELECT stop_name, stop_id, parent_station FROM stops WHERE location_type = 1") {
             let stop = Stop(name: stopRow[0] as! String, objectId: stopRow[1] as! String, parentId: stopRow[2] as? String)
-            if !contains(stationIds, stop.objectId) {
+            if !stationIds.contains(stop.objectId) {
                 var station = Station(name: stop.name)
                 station.parents.append(stop)
                 stationIds.append(stop.objectId)
-                let stationName = station.name.stringByReplacingOccurrencesOfString("'s", withString: "", options: nil, range: nil)
+                let stationName = station.name.stringByReplacingOccurrencesOfString("'s", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
                 if let queryForName = queryForNameArray(stationName.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceCharacterSet())) {
                     for parentRow in dbManager.database.prepare("SELECT stop_name, stop_id, parent_station FROM stops WHERE location_type = 1" + queryForName) {
                         let parent = Stop(name: parentRow[0] as! String, objectId: parentRow[1] as! String, parentId: parentRow[2] as? String)
@@ -70,7 +70,7 @@ public class StationManager: NSObject {
         dateFormatter.dateFormat = "YYYY-MM-DD "
         let formatter: NSDateFormatter = NSDateFormatter()
         formatter.dateFormat = "YYYY-MM-DD HH:mm:ss"
-        var timeString = dateFormatter.stringFromDate(referenceDate) + time
+        let timeString = dateFormatter.stringFromDate(referenceDate) + time
         return formatter.dateFromString(timeString)
     }
     
@@ -81,7 +81,7 @@ public class StationManager: NSObject {
                 for stop in stops {
                     qMarks = qMarks + ",?"
                 }
-                var index = advance(qMarks.endIndex, -2)
+                let index = qMarks.endIndex.advancedBy(-2)
                 qMarks = qMarks.substringToIndex(index)
             }
         }else{
@@ -125,7 +125,7 @@ public class StationManager: NSObject {
                 stop.objectId as Binding
             })
             stopIds.append(dateToTime(time))
-            stopIds.append(dateToTime(time.incrementUnit(NSCalendarUnit.CalendarUnitMinute, by: timeLimitForPredictions)))
+            stopIds.append(dateToTime(time.incrementUnit(NSCalendarUnit.Minute, by: timeLimitForPredictions)))
             var arguments = stopIds
             let stmt = dbManager.database.prepare(timesQuery)
             for timeRow in stmt.bind(stopIds) {
@@ -141,7 +141,7 @@ public class StationManager: NSObject {
                     prediction.route = routeArray[0]
                 }
                 
-                if !contains(predictions, prediction) {
+                if !predictions.contains(prediction) {
                     predictions.append(prediction)
                 }
             }

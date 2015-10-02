@@ -11,29 +11,29 @@ import UIKit
 public class RouteColorManager: NSObject {
    
     public class func colorForRouteId(routeId: String!) -> UIColor {
-        var color:UIColor = UIColor()
+        let color:UIColor = UIColor()
         
-        if contains(["1","2","3"], routeId) {
+        if ["1","2","3"].contains(routeId) {
             
         }
         
-        if contains(["4","5","5X","6"], routeId) {
+        if ["4","5","5X","6"].contains(routeId) {
             
         }
         
-        if contains(["7","7X"], routeId) {
+        if ["7","7X"].contains(routeId) {
             
         }
         
-        if contains(["A","C","E"], routeId) {
+        if ["A","C","E"].contains(routeId) {
             
         }
         
-        if contains(["B","D","F","M"], routeId) {
+        if ["B","D","F","M"].contains(routeId) {
             
         }
         
-        if contains(["N","Q","R"], routeId) {
+        if ["N","Q","R"].contains(routeId) {
             
         }
         
