@@ -3,12 +3,12 @@ platform :ios, '7.0'
 use_frameworks!
 
 target 'GTFS Stations' do
-    pod 'SQLite.swift', git: 'https://github.com/stephencelis/SQLite.swift.git'
+    pod 'SQLite.swift', git: 'https://github.com/stephencelis/SQLite.swift.git', branch: 'swift-2'
     pod "GTFSStations", :path => "../"
 end
 
 target 'GTFS StationsTests' do
-    pod 'Quick', '~> 0.3.1'
-    pod 'Nimble', '~> 1.0.0'
+    pod 'Quick', '~> 0.6.0'
+    pod 'Nimble', '~> 2.0.0-rc.3'
 end
 
