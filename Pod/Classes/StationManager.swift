@@ -19,7 +19,7 @@ public class StationManager: NSObject {
     public var routes: Array<Route> = Array<Route>()
     public var timeLimitForPredictions: Int32 = 20
     
-    public init(sourceFilePath: String?) {
+    public init(sourceFilePath: String?) throws {
         super.init()
         
         if let file = sourceFilePath {
@@ -27,15 +27,15 @@ public class StationManager: NSObject {
         }
         
         var stationIds = Array<String>()
-        for stopRow in dbManager.database.prepare("SELECT stop_name, stop_id, parent_station FROM stops WHERE location_type = 1") {
+        for stopRow in try dbManager.database.prepare("SELECT stop_name, stop_id, parent_station FROM stops WHERE location_type = 1") {
             let stop = Stop(name: stopRow[0] as! String, objectId: stopRow[1] as! String, parentId: stopRow[2] as? String)
             if !stationIds.contains(stop.objectId) {
-                var station = Station(name: stop.name)
+                let station = Station(name: stop.name)
                 station.parents.append(stop)
                 stationIds.append(stop.objectId)
                 let stationName = station.name.stringByReplacingOccurrencesOfString("'s", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
                 if let queryForName = queryForNameArray(stationName.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceCharacterSet())) {
-                    for parentRow in dbManager.database.prepare("SELECT stop_name, stop_id, parent_station FROM stops WHERE location_type = 1" + queryForName) {
+                    for parentRow in try dbManager.database.prepare("SELECT stop_name, stop_id, parent_station FROM stops WHERE location_type = 1" + queryForName) {
                         let parent = Stop(name: parentRow[0] as! String, objectId: parentRow[1] as! String, parentId: parentRow[2] as? String)
                         if station == Station(name: parent.name) {
                             station.parents.append(parent)
@@ -48,7 +48,7 @@ public class StationManager: NSObject {
             }
         }
         
-        for routeRow in dbManager.database.prepare("SELECT route_id FROM routes") {
+        for routeRow in try dbManager.database.prepare("SELECT route_id FROM routes") {
             let route = Route(objectId: routeRow[0] as! String)
             route.color = RouteColorManager.colorForRouteId(route.objectId)
             routes.append(route)
@@ -59,23 +59,23 @@ public class StationManager: NSObject {
         return allStations.filter({$0.name!.lowercaseString.rangeOfString(stationName.lowercaseString) != nil})
     }
     
-    public func predictions(station: Station!, time: NSDate!) -> Array<Prediction>{
+    public func predictions(station: Station!, time: NSDate!) throws -> Array<Prediction>{
         var predictions = Array<Prediction>()
         
-        if let stops = stopsForStation(station) {
+        if let stops = try stopsForStation(station) {
             let timesQuery = "SELECT trip_id, departure_time FROM stop_times WHERE stop_id IN (" + questionMarksForStopArray(stops)! + ") AND departure_time BETWEEN ? AND ?"
             var stopIds: [Binding?] = stops.map({ (stop: Stop) -> Binding? in
                 stop.objectId as Binding
             })
             stopIds.append(dateToTime(time))
             stopIds.append(dateToTime(time.incrementUnit(NSCalendarUnit.Minute, by: timeLimitForPredictions)))
-            let stmt = dbManager.database.prepare(timesQuery)
+            let stmt = try dbManager.database.prepare(timesQuery)
             for timeRow in stmt.bind(stopIds) {
                 let tripId = timeRow[0] as! String
                 let depTime = timeRow[1] as! String
                 let prediction = Prediction(time: timeToDate(depTime, referenceDate: time))
                 
-                for tripRow in dbManager.database.prepare("SELECT direction_id, route_id FROM trips WHERE trip_id = ?", [tripId]) {
+                for tripRow in try dbManager.database.prepare("SELECT direction_id, route_id FROM trips WHERE trip_id = ?", [tripId]) {
                     let direction = tripRow[0] as! Int64
                     let routeId = tripRow[1] as! String
                     prediction.direction = direction == 0 ? .Uptown : .Downtown
@@ -92,11 +92,11 @@ public class StationManager: NSObject {
         return predictions
     }
     
-    public func routeIdsForStation(station: Station) -> Array<String> {
+    public func routeIdsForStation(station: Station) throws -> Array<String> {
         var routeIds = Array<String>()
-        if let stops = stopsForStation(station) {
+        if let stops = try stopsForStation(station) {
             let sqlStatementString = "SELECT trips.route_id FROM trips INNER JOIN stop_times ON stop_times.trip_id = trips.trip_id WHERE stop_times.stop_id IN (" + questionMarksForStopArray(stops)! + ") GROUP BY trips.route_id"
-            let sqlStatement = dbManager.database.prepare(sqlStatementString)
+            let sqlStatement = try dbManager.database.prepare(sqlStatementString)
             let stopIds: [Binding?] = stops.map({ (stop: Stop) -> Binding? in
                 stop.objectId as Binding
             })
@@ -126,7 +126,7 @@ public class StationManager: NSObject {
         var qMarks: String = "?"
         if let stops = array {
             if stops.count > 1 {
-                for stop in stops {
+                for _ in stops {
                     qMarks = qMarks + ",?"
                 }
                 let index = qMarks.endIndex.advancedBy(-2)
@@ -150,10 +150,10 @@ public class StationManager: NSObject {
         return query
     }
     
-    func stopsForStation(station: Station) -> Array<Stop>? {
+    func stopsForStation(station: Station) throws -> Array<Stop>? {
         var stops = Array<Stop>()
         for parent in station.parents {
-            for relevantStop in dbManager.database.prepare("SELECT stop_name, stop_id FROM stops WHERE parent_station = ?", [parent.objectId]){
+            for relevantStop in try dbManager.database.prepare("SELECT stop_name, stop_id FROM stops WHERE parent_station = ?", [parent.objectId]){
                 stops.append(Stop(name: relevantStop[0] as! String, objectId: relevantStop[1] as! String, parentId: parent.objectId))
             }
         }
