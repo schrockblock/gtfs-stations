@@ -29,13 +29,21 @@ class StationManagerSpec: QuickSpec {
                     var hasColumbusCircle: Bool = false
                     for station in stations {
                         if let name = station.name {
-                            let isColumbus: String = name.hasPrefix("59 St") ? "true" : "false"
                             if (name.hasPrefix("59 St")) {
                                 hasColumbusCircle = true
                             }
                         }
                     }
                     expect(hasColumbusCircle).to(beTruthy())
+                }
+            }
+            
+            it("returns route ids for a station") {
+                let firstStation = allStations?.first
+                expect(firstStation).notTo(beNil())
+                if let station = firstStation {
+                    let routeIds = stationManager.routeIdsForStation(station)
+                    expect(routeIds.count).notTo(equal(0))
                 }
             }
             

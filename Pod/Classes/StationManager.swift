@@ -59,6 +59,54 @@ public class StationManager: NSObject {
         return allStations.filter({$0.name!.lowercaseString.rangeOfString(stationName.lowercaseString) != nil})
     }
     
+    public func predictions(station: Station!, time: NSDate!) -> Array<Prediction>{
+        var predictions = Array<Prediction>()
+        
+        if let stops = stopsForStation(station) {
+            let timesQuery = "SELECT trip_id, departure_time FROM stop_times WHERE stop_id IN (" + questionMarksForStopArray(stops)! + ") AND departure_time BETWEEN ? AND ?"
+            var stopIds: [Binding?] = stops.map({ (stop: Stop) -> Binding? in
+                stop.objectId as Binding
+            })
+            stopIds.append(dateToTime(time))
+            stopIds.append(dateToTime(time.incrementUnit(NSCalendarUnit.Minute, by: timeLimitForPredictions)))
+            let stmt = dbManager.database.prepare(timesQuery)
+            for timeRow in stmt.bind(stopIds) {
+                let tripId = timeRow[0] as! String
+                let depTime = timeRow[1] as! String
+                let prediction = Prediction(time: timeToDate(depTime, referenceDate: time))
+                
+                for tripRow in dbManager.database.prepare("SELECT direction_id, route_id FROM trips WHERE trip_id = ?", [tripId]) {
+                    let direction = tripRow[0] as! Int64
+                    let routeId = tripRow[1] as! String
+                    prediction.direction = direction == 0 ? .Uptown : .Downtown
+                    let routeArray = routes.filter({$0.objectId == routeId})
+                    prediction.route = routeArray[0]
+                }
+                
+                if !predictions.contains(prediction) {
+                    predictions.append(prediction)
+                }
+            }
+        }
+        
+        return predictions
+    }
+    
+    public func routeIdsForStation(station: Station) -> Array<String> {
+        var routeIds = Array<String>()
+        if let stops = stopsForStation(station) {
+            let sqlStatementString = "SELECT trips.route_id FROM trips INNER JOIN stop_times ON stop_times.trip_id = trips.trip_id WHERE stop_times.stop_id IN (" + questionMarksForStopArray(stops)! + ") GROUP BY trips.route_id"
+            let sqlStatement = dbManager.database.prepare(sqlStatementString)
+            let stopIds: [Binding?] = stops.map({ (stop: Stop) -> Binding? in
+                stop.objectId as Binding
+            })
+            for routeRow in sqlStatement.bind(stopIds) {
+                routeIds.append(routeRow[0] as! String)
+            }
+        }
+        return routeIds
+    }
+    
     func dateToTime(time: NSDate!) -> String{
         let formatter: NSDateFormatter = NSDateFormatter()
         formatter.dateFormat = "HH:mm:ss"
@@ -114,39 +162,5 @@ public class StationManager: NSObject {
         }else{
             return stops
         }
-    }
-    
-    public func predictions(station: Station!, time: NSDate!) -> Array<Prediction>{
-        var predictions = Array<Prediction>()
-        
-        if let stops = stopsForStation(station) {
-            let timesQuery = "SELECT trip_id, departure_time FROM stop_times WHERE stop_id IN (" + questionMarksForStopArray(stops)! + ") AND departure_time BETWEEN ? AND ?"
-            var stopIds: [Binding?] = stops.map({ (stop: Stop) -> Binding? in
-                stop.objectId as Binding
-            })
-            stopIds.append(dateToTime(time))
-            stopIds.append(dateToTime(time.incrementUnit(NSCalendarUnit.Minute, by: timeLimitForPredictions)))
-            var arguments = stopIds
-            let stmt = dbManager.database.prepare(timesQuery)
-            for timeRow in stmt.bind(stopIds) {
-                let tripId = timeRow[0] as! String
-                let depTime = timeRow[1] as! String
-                var prediction = Prediction(time: timeToDate(depTime, referenceDate: time))
-                
-                for tripRow in dbManager.database.prepare("SELECT direction_id, route_id FROM trips WHERE trip_id = ?", [tripId]) {
-                    let direction = tripRow[0] as! Int64
-                    let routeId = tripRow[1] as! String
-                    prediction.direction = direction == 0 ? .Uptown : .Downtown
-                    let routeArray = routes.filter({$0.objectId == routeId})
-                    prediction.route = routeArray[0]
-                }
-                
-                if !predictions.contains(prediction) {
-                    predictions.append(prediction)
-                }
-            }
-        }
-        
-        return predictions
     }
 }

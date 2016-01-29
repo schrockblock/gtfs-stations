@@ -9,8 +9,7 @@ DEPENDENCIES:
   - GTFSStations (from `../`)
   - Nimble (~> 2.0.0-rc.3)
   - Quick (~> 0.6.0)
-  - SQLite.swift (from `https://github.com/stephencelis/SQLite.swift.git`, branch
-    `swift-2`)
+  - SQLite.swift (from `https://github.com/stephencelis/SQLite.swift.git`, branch `swift-2`)
 
 EXTERNAL SOURCES:
   GTFSStations:
@@ -25,9 +24,11 @@ CHECKOUT OPTIONS:
     :git: https://github.com/stephencelis/SQLite.swift.git
 
 SPEC CHECKSUMS:
-  GTFSStations: 32daf1cc7914b1c0319da972164f73e66f622a7a
+  GTFSStations: e0baf84440fe95ac582a91ca622fb9092628cb9f
   Nimble: 9dff98ee195ffe7351d3b2fb01d3a1420fd97948
   Quick: 563686dbcf0ae0f9f7401ac9cd2d786ee1b7f3d7
-  SQLite.swift: 5dfee5c783b93f4c0035c0317a11c3c92cc91910
+  SQLite.swift: 7b86796ed46553184ea5e9862c6d73024efc40d4
 
-COCOAPODS: 0.38.2
+PODFILE CHECKSUM: bacbe5d37a39c7892237b2f3dc8c4429de8eac19
+
+COCOAPODS: 1.0.0.beta.2
