@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import SubwayStations
 
-public class Stop: NSObject {
+public class NYCStop: NSObject, Stop {
     public var name: String!
-    var objectId: String!
-    var parentId: String!
+    public var objectId: String!
+    public var parentId: String!
     public var station: Station!
    
     init(name: String!, objectId: String!, parentId: String?) {

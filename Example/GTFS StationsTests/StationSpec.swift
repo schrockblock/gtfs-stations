@@ -9,28 +9,29 @@
 import GTFS_Stations
 import Quick
 import Nimble
+import SubwayStations
 
 class StationSpec: QuickSpec {
     override func spec() {
         describe("Station", { () -> Void in
             
             it("is equal when names match") {
-                var firstStation = Station(name: "Union")
-                var secondStation = Station(name: "union")
+                let firstStation = NYCStation(name: "Union")
+                let secondStation = NYCStation(name: "union")
                 
                 expect(firstStation == secondStation).to(beTruthy())
             }
             
             it("is equal when names are word permutations of eachother") {
-                var firstStation = Station(name: "14th Union")
-                var secondStation = Station(name: "union 14th")
+                let firstStation = NYCStation(name: "14th Union")
+                let secondStation = NYCStation(name: "union 14th")
                 
                 expect(firstStation == secondStation).to(beTruthy())
             }
             
             it("is not equal when names are not word permutations of eachother") {
-                var firstStation = Station(name: "Union Sq")
-                var secondStation = Station(name: "union 14th")
+                let firstStation = NYCStation(name: "Union Sq")
+                let secondStation = NYCStation(name: "union 14th")
                 
                 expect(firstStation == secondStation).to(beFalsy())
             }

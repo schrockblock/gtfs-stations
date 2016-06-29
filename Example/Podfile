@@ -1,14 +1,15 @@
 # Uncomment this line to define a global platform for your project
-platform :ios, '8.0'
+platform :ios, '9.0'
 use_frameworks!
 
 target 'GTFS Stations' do
-    pod 'SQLite.swift', git: 'https://github.com/stephencelis/SQLite.swift.git'
+    pod 'SQLite.swift', '~> 0.10.1'
+    pod 'SubwayStations', git: 'https://github.com/schrockblock/subway-stations'
     pod "GTFSStations", :path => "../"
 end
 
 target 'GTFS StationsTests' do
-    pod 'Quick', '~> 0.6.0'
-    pod 'Nimble', '~> 2.0.0-rc.3'
+    pod 'Quick'
+    pod 'Nimble'
 end
 
