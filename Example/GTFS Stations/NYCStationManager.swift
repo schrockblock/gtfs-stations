@@ -101,17 +101,21 @@ public class NYCStationManager: NSObject, StationManager {
         return predictions
     }
     
-    public func routeIdsForStation(station: Station) throws -> Array<String> {
+    public func routeIdsForStation(station: Station) -> Array<String> {
         var routeIds = Array<String>()
-        if let stops = try stopsForStation(station) {
-            let sqlStatementString = "SELECT trips.route_id FROM trips INNER JOIN stop_times ON stop_times.trip_id = trips.trip_id WHERE stop_times.stop_id IN (" + questionMarksForStopArray(stops)! + ") GROUP BY trips.route_id"
-            let sqlStatement = try dbManager.database.prepare(sqlStatementString)
-            let stopIds: [Binding?] = stops.map({ (stop: Stop) -> Binding? in
-                stop.objectId as Binding
-            })
-            for routeRow in sqlStatement.bind(stopIds) {
-                routeIds.append(routeRow[0] as! String)
+        do {
+            if let stops = try stopsForStation(station) {
+                let sqlStatementString = "SELECT trips.route_id FROM trips INNER JOIN stop_times ON stop_times.trip_id = trips.trip_id WHERE stop_times.stop_id IN (" + questionMarksForStopArray(stops)! + ") GROUP BY trips.route_id"
+                let sqlStatement = try dbManager.database.prepare(sqlStatementString)
+                let stopIds: [Binding?] = stops.map({ (stop: Stop) -> Binding? in
+                    stop.objectId as Binding
+                })
+                for routeRow in sqlStatement.bind(stopIds) {
+                    routeIds.append(routeRow[0] as! String)
+                }
             }
+        }catch _ {
+            
         }
         return routeIds
     }

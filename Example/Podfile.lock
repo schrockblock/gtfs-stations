@@ -21,7 +21,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   SubwayStations:
-    :commit: 69f2842eafed5a360f66e6e155c55759b1331e11
+    :commit: d66c8471ca9b78fe7aa8d23613f429b8358dc4bd
     :git: https://github.com/schrockblock/subway-stations
 
 SPEC CHECKSUMS:
@@ -29,7 +29,7 @@ SPEC CHECKSUMS:
   Nimble: 97a0a4cae5124c117115634b2d055d8c97d0af19
   Quick: 18d057bc66451eedd5d1c8dc99ba2a5db6e60226
   SQLite.swift: 6a6e4b034efc317ce4e203b6af2d3024fee2b570
-  SubwayStations: 1a860d6d9dac7a7755b3b9142328165d2c801a01
+  SubwayStations: e119c62429dc58b95345ecd3d1d02b1f2f5ed545
 
 PODFILE CHECKSUM: 78c58e9360c03a3be7a5d8794c8fcc3a4dc69925
 
