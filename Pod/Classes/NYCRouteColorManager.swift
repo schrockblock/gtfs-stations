@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import SubwayStations
 
-public class RouteColorManager: NSObject {
+public class NYCRouteColorManager: NSObject, RouteColorManager {
    
     public class func colorForRouteId(routeId: String!) -> UIColor {
         let color:UIColor = UIColor()

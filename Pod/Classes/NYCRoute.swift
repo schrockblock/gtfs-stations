@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import SubwayStations
 
-public class Route: NSObject {
+public class NYCRoute: NSObject, Route {
     public var color: UIColor!
     public var objectId: String!
     
