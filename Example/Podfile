@@ -9,7 +9,7 @@ target 'GTFS Stations' do
 end
 
 target 'GTFS StationsTests' do
-    pod 'Quick', '~> 0.6.0'
-    pod 'Nimble', '~> 2.0.0-rc.3'
+    pod 'Quick'
+    pod 'Nimble'
 end
 

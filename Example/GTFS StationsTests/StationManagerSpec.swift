@@ -9,13 +9,14 @@
 import GTFS_Stations
 import Quick
 import Nimble
+import SubwayStations
 
 class StationManagerSpec: QuickSpec {
     override func spec() {
         describe("StationManager", { () -> Void in
             do {
                 let path = NSBundle.mainBundle().pathForResource("gtfs", ofType: "db")
-                let stationManager: StationManager! = try StationManager(sourceFilePath: path)
+                let stationManager: NYCStationManager! = try NYCStationManager(sourceFilePath: path)
                 var allStations: Array<Station>?
                 
                 beforeSuite {

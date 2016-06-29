@@ -9,13 +9,14 @@
 import GTFS_Stations
 import Quick
 import Nimble
+import SubwayStations
 
 class PredictionSpec: QuickSpec {
     override func spec() {
         describe("Prediction", { () -> Void in
             
             it("is equal when everything matches") {
-                let route = Route(objectId: "1")
+                let route = NYCRoute(objectId: "1")
                 let time = NSDate()
                 
                 let first = Prediction(time: time)
@@ -27,7 +28,7 @@ class PredictionSpec: QuickSpec {
                 second.route = route
                 second.direction = .Downtown
                 
-                expect([first].contains(second)).to(beTruthy())
+                expect([first].contains({second == $0})).to(beTruthy())
             }
         })
     }
