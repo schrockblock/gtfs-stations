@@ -9,14 +9,11 @@
 import UIKit
 import SubwayStations
 
-public class NYCRoute: NSObject, Route {
+public class NYCRoute: Route {
     public var color: UIColor!
     public var objectId: String!
     
-    init(objectId: String!) {
-        super.init()
+    public init(objectId: String!) {
         self.objectId = objectId
-        
-        
     }
 }

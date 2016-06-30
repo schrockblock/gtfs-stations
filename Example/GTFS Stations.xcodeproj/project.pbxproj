@@ -21,11 +21,11 @@
 		498EE51C1B6558D400ACB842 /* gtfs.db in Resources */ = {isa = PBXBuildFile; fileRef = 498EE51B1B6558D400ACB842 /* gtfs.db */; };
 		498EE51D1B6558D400ACB842 /* gtfs.db in Resources */ = {isa = PBXBuildFile; fileRef = 498EE51B1B6558D400ACB842 /* gtfs.db */; };
 		4997ED271B63FF2F00AD94EB /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 49832F5D1B63F0E800943A2F /* libsqlite3.dylib */; };
-		49A94DFE1D246F5500D59F7C /* NYCRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A94DF91D246F5500D59F7C /* NYCRoute.swift */; };
-		49A94DFF1D246F5500D59F7C /* NYCRouteColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A94DFA1D246F5500D59F7C /* NYCRouteColorManager.swift */; };
-		49A94E001D246F5500D59F7C /* NYCStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A94DFB1D246F5500D59F7C /* NYCStation.swift */; };
-		49A94E011D246F5500D59F7C /* NYCStationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A94DFC1D246F5500D59F7C /* NYCStationManager.swift */; };
-		49A94E021D246F5500D59F7C /* NYCStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A94DFD1D246F5500D59F7C /* NYCStop.swift */; };
+		49A94E121D25C38300D59F7C /* NYCRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A94E0D1D25C38200D59F7C /* NYCRoute.swift */; };
+		49A94E131D25C38300D59F7C /* NYCRouteColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A94E0E1D25C38200D59F7C /* NYCRouteColorManager.swift */; };
+		49A94E141D25C38300D59F7C /* NYCStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A94E0F1D25C38200D59F7C /* NYCStation.swift */; };
+		49A94E151D25C38300D59F7C /* NYCStationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A94E101D25C38300D59F7C /* NYCStationManager.swift */; };
+		49A94E161D25C38300D59F7C /* NYCStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A94E111D25C38300D59F7C /* NYCStop.swift */; };
 		49D0A53B1B2C83CC00CBC8D4 /* StationManagerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D0A53A1B2C83CC00CBC8D4 /* StationManagerSpec.swift */; };
 		49D535A31B69DADE0087D368 /* StationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D535A21B69DADE0087D368 /* StationSpec.swift */; };
 		49D535A51B69E8F70087D368 /* PredictionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D535A41B69E8F70087D368 /* PredictionSpec.swift */; };
@@ -72,11 +72,11 @@
 		498EE5171B65580300ACB842 /* NSDate+RelativeTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+RelativeTime.h"; path = "../../Pod/Classes/NSDate+RelativeTime.h"; sourceTree = "<group>"; };
 		498EE5181B65580300ACB842 /* NSDate+RelativeTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+RelativeTime.m"; path = "../../Pod/Classes/NSDate+RelativeTime.m"; sourceTree = "<group>"; };
 		498EE51B1B6558D400ACB842 /* gtfs.db */ = {isa = PBXFileReference; lastKnownFileType = file; name = gtfs.db; path = ../../Pod/Classes/gtfs.db; sourceTree = "<group>"; };
-		49A94DF91D246F5500D59F7C /* NYCRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NYCRoute.swift; sourceTree = "<group>"; };
-		49A94DFA1D246F5500D59F7C /* NYCRouteColorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NYCRouteColorManager.swift; sourceTree = "<group>"; };
-		49A94DFB1D246F5500D59F7C /* NYCStation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NYCStation.swift; sourceTree = "<group>"; };
-		49A94DFC1D246F5500D59F7C /* NYCStationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NYCStationManager.swift; sourceTree = "<group>"; };
-		49A94DFD1D246F5500D59F7C /* NYCStop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NYCStop.swift; sourceTree = "<group>"; };
+		49A94E0D1D25C38200D59F7C /* NYCRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NYCRoute.swift; path = ../../Pod/Classes/NYCRoute.swift; sourceTree = "<group>"; };
+		49A94E0E1D25C38200D59F7C /* NYCRouteColorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NYCRouteColorManager.swift; path = ../../Pod/Classes/NYCRouteColorManager.swift; sourceTree = "<group>"; };
+		49A94E0F1D25C38200D59F7C /* NYCStation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NYCStation.swift; path = ../../Pod/Classes/NYCStation.swift; sourceTree = "<group>"; };
+		49A94E101D25C38300D59F7C /* NYCStationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NYCStationManager.swift; path = ../../Pod/Classes/NYCStationManager.swift; sourceTree = "<group>"; };
+		49A94E111D25C38300D59F7C /* NYCStop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NYCStop.swift; path = ../../Pod/Classes/NYCStop.swift; sourceTree = "<group>"; };
 		49D0A53A1B2C83CC00CBC8D4 /* StationManagerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationManagerSpec.swift; sourceTree = "<group>"; };
 		49D535A21B69DADE0087D368 /* StationSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationSpec.swift; sourceTree = "<group>"; };
 		49D535A41B69E8F70087D368 /* PredictionSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredictionSpec.swift; sourceTree = "<group>"; };
@@ -187,11 +187,11 @@
 		496C48231B290DA40032FE1C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				49A94DF91D246F5500D59F7C /* NYCRoute.swift */,
-				49A94DFA1D246F5500D59F7C /* NYCRouteColorManager.swift */,
-				49A94DFB1D246F5500D59F7C /* NYCStation.swift */,
-				49A94DFC1D246F5500D59F7C /* NYCStationManager.swift */,
-				49A94DFD1D246F5500D59F7C /* NYCStop.swift */,
+				49A94E0D1D25C38200D59F7C /* NYCRoute.swift */,
+				49A94E0E1D25C38200D59F7C /* NYCRouteColorManager.swift */,
+				49A94E0F1D25C38200D59F7C /* NYCStation.swift */,
+				49A94E101D25C38300D59F7C /* NYCStationManager.swift */,
+				49A94E111D25C38300D59F7C /* NYCStop.swift */,
 				498EE4E81B6556E000ACB842 /* DBManager.swift */,
 			);
 			name = Models;
@@ -430,12 +430,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49A94E001D246F5500D59F7C /* NYCStation.swift in Sources */,
-				49A94E011D246F5500D59F7C /* NYCStationManager.swift in Sources */,
-				49A94DFF1D246F5500D59F7C /* NYCRouteColorManager.swift in Sources */,
-				49A94DFE1D246F5500D59F7C /* NYCRoute.swift in Sources */,
+				49A94E141D25C38300D59F7C /* NYCStation.swift in Sources */,
+				49A94E151D25C38300D59F7C /* NYCStationManager.swift in Sources */,
+				49A94E131D25C38300D59F7C /* NYCRouteColorManager.swift in Sources */,
+				49A94E121D25C38300D59F7C /* NYCRoute.swift in Sources */,
 				496C481E1B2902170032FE1C /* ViewController.swift in Sources */,
-				49A94E021D246F5500D59F7C /* NYCStop.swift in Sources */,
+				49A94E161D25C38300D59F7C /* NYCStop.swift in Sources */,
 				498EE5191B65580300ACB842 /* NSDate+RelativeTime.m in Sources */,
 				498EE4EF1B6556E000ACB842 /* DBManager.swift in Sources */,
 				496C47FD1B2900C70032FE1C /* AppDelegate.swift in Sources */,
