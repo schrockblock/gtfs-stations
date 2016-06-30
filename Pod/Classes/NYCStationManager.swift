@@ -52,7 +52,7 @@ public class NYCStationManager: NSObject, StationManager {
             
             for routeRow in try dbManager.database.prepare("SELECT route_id FROM routes") {
                 let route = NYCRoute(objectId: routeRow[0] as! String)
-                route.color = NYCRouteColorManager.colorForRouteId(route.objectId)
+                route.color = NYCRouteColorManager().colorForRouteId(route.objectId)
                 routes.append(route)
             }
         }catch _ {

@@ -21,7 +21,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   SubwayStations:
-    :commit: d66c8471ca9b78fe7aa8d23613f429b8358dc4bd
+    :commit: 0b05e317ef42e2f993473b3f4c9904c23aed2339
     :git: https://github.com/schrockblock/subway-stations
 
 SPEC CHECKSUMS:

@@ -11,7 +11,7 @@ import SubwayStations
 
 public class NYCRouteColorManager: NSObject, RouteColorManager {
    
-    public class func colorForRouteId(routeId: String!) -> UIColor {
+    public func colorForRouteId(routeId: String!) -> UIColor {
         var color: UIColor = UIColor.darkGrayColor()
         
         if ["1","2","3"].contains(routeId) {
