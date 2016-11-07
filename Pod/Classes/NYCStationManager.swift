@@ -35,8 +35,8 @@ open class NYCStationManager: NSObject, StationManager {
                     let station = NYCStation(name: stop.name)
                     station.stops.append(stop)
                     stationIds.append(stop.objectId)
-                    let stationName = station.name.stringByReplacingOccurrencesOfString("'s", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
-                    if let queryForName = queryForNameArray(stationName.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceCharacterSet())) {
+                    let stationName = station.name.replacingOccurrences(of: "'s", with: "", options: NSString.CompareOptions.caseInsensitive, range: nil)
+                    if let queryForName = queryForNameArray(stationName.components(separatedBy: NSCharacterSet.whitespaces)) {
                         for parentRow in try dbManager.database.prepare("SELECT stop_name, stop_id, parent_station FROM stops WHERE location_type = 1" + queryForName) {
                             let parent = NYCStop(name: parentRow[0] as! String, objectId: parentRow[1] as! String, parentId: parentRow[2] as? String)
                             if station == NYCStation(name: parent.name) {
@@ -61,10 +61,10 @@ open class NYCStationManager: NSObject, StationManager {
     }
     
     open func stationsForSearchString(_ stationName: String!) -> Array<Station>? {
-        return allStations.filter({$0.name!.lowercaseString.rangeOfString(stationName.lowercaseString) != nil})
+        return allStations.filter({$0.name!.lowercased().range(of: stationName.lowercased()) != nil})
     }
     
-    open func predictions(_ station: Station!, time: NSDate!) -> Array<Prediction>{
+    open func predictions(_ station: Station!, time: Date!) -> Array<Prediction>{
         var predictions = Array<Prediction>()
         
         do {
@@ -74,7 +74,7 @@ open class NYCStationManager: NSObject, StationManager {
                     stop.objectId as Binding
                 })
                 stopIds.append(dateToTime(time))
-                stopIds.append(dateToTime(time.incrementUnit(NSCalendar.Unit.Minute, by: timeLimitForPredictions)))
+                stopIds.append(dateToTime((time as NSDate!).incrementUnit(NSCalendar.Unit.minute, by: timeLimitForPredictions)))
                 let stmt = try dbManager.database.prepare(timesQuery)
                 for timeRow in stmt.bind(stopIds) {
                     let tripId = timeRow[0] as! String
@@ -84,12 +84,12 @@ open class NYCStationManager: NSObject, StationManager {
                     for tripRow in try dbManager.database.prepare("SELECT direction_id, route_id FROM trips WHERE trip_id = ?", [tripId]) {
                         let direction = tripRow[0] as! Int64
                         let routeId = tripRow[1] as! String
-                        prediction.direction = direction == 0 ? .Uptown : .Downtown
+                        prediction.direction = direction == 0 ? Direction.uptown : Direction.downtown
                         let routeArray = routes.filter({$0.objectId == routeId})
                         prediction.route = routeArray[0]
                     }
                     
-                    if !predictions.contains({$0 == prediction}) {
+                    if !predictions.contains(where: {$0 == prediction}) {
                         predictions.append(prediction)
                     }
                 }

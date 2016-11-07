@@ -19,16 +19,16 @@ class PredictionSpec: QuickSpec {
                 let route = NYCRoute(objectId: "1")
                 let time = NSDate()
                 
-                let first = Prediction(time: time)
-                let second = Prediction(time: time)
+                let first = Prediction(time: time as Date)
+                let second = Prediction(time: time as Date)
                 
                 first.route = route
-                first.direction = .Downtown
+                first.direction = .downtown
                 
                 second.route = route
-                second.direction = .Downtown
+                second.direction = .downtown
                 
-                expect([first].contains({second == $0})).to(beTruthy())
+                expect([first].contains(where: {second == $0})).to(beTruthy())
             }
         })
     }
