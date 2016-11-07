@@ -10,15 +10,15 @@ import UIKit
 import SQLite
 import SubwayStations
 
-public class NYCStationManager: NSObject, StationManager {
-    public var sourceFilePath: String?
+open class NYCStationManager: NSObject, StationManager {
+    open var sourceFilePath: String?
     lazy var dbManager: DBManager = {
             let lazyManager = DBManager(sourcePath: self.sourceFilePath)
             return lazyManager
         }()
-    public var allStations: Array<Station> = Array<Station>()
-    public var routes: Array<Route> = Array<Route>()
-    public var timeLimitForPredictions: Int32 = 20
+    open var allStations: Array<Station> = Array<Station>()
+    open var routes: Array<Route> = Array<Route>()
+    open var timeLimitForPredictions: Int32 = 20
     
     public init(sourceFilePath: String?) throws {
         super.init()
@@ -60,11 +60,11 @@ public class NYCStationManager: NSObject, StationManager {
         }
     }
     
-    public func stationsForSearchString(stationName: String!) -> Array<Station>? {
+    open func stationsForSearchString(_ stationName: String!) -> Array<Station>? {
         return allStations.filter({$0.name!.lowercaseString.rangeOfString(stationName.lowercaseString) != nil})
     }
     
-    public func predictions(station: Station!, time: NSDate!) -> Array<Prediction>{
+    open func predictions(_ station: Station!, time: NSDate!) -> Array<Prediction>{
         var predictions = Array<Prediction>()
         
         do {
@@ -74,7 +74,7 @@ public class NYCStationManager: NSObject, StationManager {
                     stop.objectId as Binding
                 })
                 stopIds.append(dateToTime(time))
-                stopIds.append(dateToTime(time.incrementUnit(NSCalendarUnit.Minute, by: timeLimitForPredictions)))
+                stopIds.append(dateToTime(time.incrementUnit(NSCalendar.Unit.Minute, by: timeLimitForPredictions)))
                 let stmt = try dbManager.database.prepare(timesQuery)
                 for timeRow in stmt.bind(stopIds) {
                     let tripId = timeRow[0] as! String
@@ -101,7 +101,7 @@ public class NYCStationManager: NSObject, StationManager {
         return predictions
     }
     
-    public func routeIdsForStation(station: Station) -> Array<String> {
+    open func routeIdsForStation(_ station: Station) -> Array<String> {
         var routeIds = Array<String>()
         do {
             if let stops = try stopsForStation(station) {
@@ -120,30 +120,30 @@ public class NYCStationManager: NSObject, StationManager {
         return routeIds
     }
     
-    func dateToTime(time: NSDate!) -> String{
-        let formatter: NSDateFormatter = NSDateFormatter()
+    func dateToTime(_ time: Date!) -> String{
+        let formatter: DateFormatter = DateFormatter()
         formatter.dateFormat = "HH:mm:ss"
-        return formatter.stringFromDate(time)
+        return formatter.string(from: time)
     }
     
-    func timeToDate(time: String!, referenceDate: NSDate!) -> NSDate?{
-        let dateFormatter = NSDateFormatter()
+    func timeToDate(_ time: String!, referenceDate: Date!) -> Date?{
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YYYY-MM-DD "
-        let formatter: NSDateFormatter = NSDateFormatter()
+        let formatter: DateFormatter = DateFormatter()
         formatter.dateFormat = "YYYY-MM-DD HH:mm:ss"
-        let timeString = dateFormatter.stringFromDate(referenceDate) + time
-        return formatter.dateFromString(timeString)
+        let timeString = dateFormatter.string(from: referenceDate) + time
+        return formatter.date(from: timeString)
     }
     
-    func questionMarksForStopArray(array: Array<Stop>?) -> String?{
+    func questionMarksForStopArray(_ array: Array<Stop>?) -> String?{
         var qMarks: String = "?"
         if let stops = array {
             if stops.count > 1 {
                 for _ in stops {
                     qMarks = qMarks + ",?"
                 }
-                let index = qMarks.endIndex.advancedBy(-2)
-                qMarks = qMarks.substringToIndex(index)
+                let index = qMarks.characters.index(qMarks.endIndex, offsetBy: -2)
+                qMarks = qMarks.substring(to: index)
             }
         }else{
             return nil
@@ -151,7 +151,7 @@ public class NYCStationManager: NSObject, StationManager {
         return qMarks
     }
     
-    func queryForNameArray(array: Array<String>?) -> String? {
+    func queryForNameArray(_ array: Array<String>?) -> String? {
         var query = ""
         if let nameArray = array {
             for nameComponent in nameArray {
@@ -163,7 +163,7 @@ public class NYCStationManager: NSObject, StationManager {
         return query
     }
     
-    func stopsForStation(station: Station) throws -> Array<Stop>? {
+    func stopsForStation(_ station: Station) throws -> Array<Stop>? {
         var stops = Array<Stop>()
         for parent in station.stops {
             do {

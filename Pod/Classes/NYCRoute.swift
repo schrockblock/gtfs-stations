@@ -9,9 +9,9 @@
 import UIKit
 import SubwayStations
 
-public class NYCRoute: Route {
-    public var color: UIColor!
-    public var objectId: String!
+open class NYCRoute: Route {
+    open var color: UIColor!
+    open var objectId: String!
     
     public init(objectId: String!) {
         self.objectId = objectId

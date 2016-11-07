@@ -9,7 +9,7 @@
 import UIKit
 import SQLite
 
-public class DBManager: NSObject {
+open class DBManager: NSObject {
     var sourcePath: String!
     lazy var database: Connection = try! {
         let lazyDatabase = try Connection(self.sourcePath)

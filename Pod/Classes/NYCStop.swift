@@ -9,11 +9,11 @@
 import UIKit
 import SubwayStations
 
-public class NYCStop: NSObject, Stop {
-    public var name: String!
-    public var objectId: String!
-    public var parentId: String!
-    public var station: Station!
+open class NYCStop: NSObject, Stop {
+    open var name: String!
+    open var objectId: String!
+    open var parentId: String!
+    open var station: Station!
    
     init(name: String!, objectId: String!, parentId: String?) {
         super.init()
