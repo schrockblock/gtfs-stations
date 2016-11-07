@@ -34,7 +34,7 @@ open class NYCRouteColorManager: NSObject, RouteColorManager {
             color = UIColor(rgba: "#F58120")
         }
         
-        if ["N","Q","R"].contains(routeId) {
+        if ["N","Q","R","W"].contains(routeId) {
             color = UIColor(rgba: "#FFD51D")
         }
         

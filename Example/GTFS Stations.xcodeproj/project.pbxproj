@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0FCB05662FDBDA0F424CEC91 /* Pods_GTFS_Stations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B22ADB7CD158A01356E7AE02 /* Pods_GTFS_Stations.framework */; };
+		491A05EB1DCFFEBD008624E9 /* GTFSStations.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 491A05EA1DCFFEBD008624E9 /* GTFSStations.podspec */; };
 		496C47FD1B2900C70032FE1C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496C47FC1B2900C70032FE1C /* AppDelegate.swift */; };
 		496C48041B2900C70032FE1C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 496C48031B2900C70032FE1C /* Images.xcassets */; };
 		496C48071B2900C70032FE1C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 496C48051B2900C70032FE1C /* LaunchScreen.xib */; };
@@ -56,6 +57,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		491A05EA1DCFFEBD008624E9 /* GTFSStations.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = GTFSStations.podspec; path = ../../GTFSStations.podspec; sourceTree = "<group>"; };
 		496C47F71B2900C70032FE1C /* GTFS Stations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GTFS Stations.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		496C47FB1B2900C70032FE1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		496C47FC1B2900C70032FE1C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 		496C47F91B2900C70032FE1C /* GTFS Stations */ = {
 			isa = PBXGroup;
 			children = (
+				491A05EA1DCFFEBD008624E9 /* GTFSStations.podspec */,
 				496C47FC1B2900C70032FE1C /* AppDelegate.swift */,
 				4997ED2E1B6460D300AD94EB /* RelativeTime */,
 				496C48241B290DAB0032FE1C /* Controllers */,
@@ -319,6 +322,7 @@
 			files = (
 				496C48071B2900C70032FE1C /* LaunchScreen.xib in Resources */,
 				496C481F1B2902170032FE1C /* ViewController.xib in Resources */,
+				491A05EB1DCFFEBD008624E9 /* GTFSStations.podspec in Resources */,
 				498EE51C1B6558D400ACB842 /* gtfs.db in Resources */,
 				496C48041B2900C70032FE1C /* Images.xcassets in Resources */,
 			);
