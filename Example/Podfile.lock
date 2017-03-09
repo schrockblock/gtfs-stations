@@ -1,38 +1,30 @@
 PODS:
-  - GTFSStations (0.0.2):
+  - GTFSStations (0.0.4):
     - SQLite.swift
-  - Nimble (5.1.1)
-  - Quick (0.10.0)
-  - SQLite.swift (0.11.0):
-    - SQLite.swift/standard (= 0.11.0)
-  - SQLite.swift/standard (0.11.0)
+    - SubwayStations
+  - Nimble (6.0.1)
+  - Quick (1.1.0)
+  - SQLite.swift (0.11.2):
+    - SQLite.swift/standard (= 0.11.2)
+  - SQLite.swift/standard (0.11.2)
   - SubwayStations (0.1.0)
 
 DEPENDENCIES:
   - GTFSStations (from `../`)
   - Nimble
   - Quick
-  - SQLite.swift (~> 0.11.0)
-  - SubwayStations (from `https://github.com/schrockblock/subway-stations`)
 
 EXTERNAL SOURCES:
   GTFSStations:
-    :path: "../"
-  SubwayStations:
-    :git: https://github.com/schrockblock/subway-stations
-
-CHECKOUT OPTIONS:
-  SubwayStations:
-    :commit: 54b25f00b1b37f869e857996a2ef39bc47866592
-    :git: https://github.com/schrockblock/subway-stations
+    :path: ../
 
 SPEC CHECKSUMS:
-  GTFSStations: 6493dce849b1356d6168fc48172bd98eb892439c
-  Nimble: 415e3aa3267e7bc2c96b05fa814ddea7bb686a29
-  Quick: 5d290df1c69d5ee2f0729956dcf0fd9a30447eaa
-  SQLite.swift: 9a26273607d3077a2e5a8d33486e9989f8404c7d
-  SubwayStations: e119c62429dc58b95345ecd3d1d02b1f2f5ed545
+  GTFSStations: a24e98c0ea62876beb06197039ced33ef7d5e72c
+  Nimble: 1527fd1bd2b4cf0636251a36bc8ab37e81da8347
+  Quick: dafc587e21eed9f4cab3249b9f9015b0b7a7f71d
+  SQLite.swift: 670c3e9e0a806bbfd56a3de5d530768dc0e6fe7c
+  SubwayStations: 3d26bc8393463c92f2743f9558992bd98d84bb9f
 
-PODFILE CHECKSUM: c372d16c22b2e5b36e49df21b5482c74e0994a7e
+PODFILE CHECKSUM: 14d48f76bcf91fe518918fa210558f9709a884b9
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.0

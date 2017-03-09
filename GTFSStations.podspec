@@ -9,14 +9,14 @@
 
 Pod::Spec.new do |s|
   s.name             = "GTFSStations"
-  s.version          = "0.0.3"
+  s.version          = "0.0.4"
   s.summary          = "GTFS Stations takes GTFS data and organizes it into stations"
   s.description      = <<-DESC
                        Take a look at StationManager. This will allow you to get stations and predictions within a given time of your the date you pass in.
                        DESC
   s.homepage         = "https://github.com/schrockblock/gtfs-stations"
   s.license          = 'MIT'
-  s.author           = { "Elliot" => "ephherd@gmail.com" }
+  s.author           = { "Elliot" => "" }
   s.source           = { :git => "https://github.com/schrockblock/gtfs-stations.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/schrockblock'
 
@@ -29,4 +29,5 @@ Pod::Spec.new do |s|
   #s.module_map = 'Pod/Classes/module.modulemap'
 
   s.dependency 'SQLite.swift'
+  s.dependency 'SubwayStations'
 end
