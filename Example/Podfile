@@ -2,14 +2,18 @@
 platform :ios, '9.0'
 use_frameworks!
 
-target 'GTFS Stations' do
+def import_pods
     pod 'SQLite.swift', '~> 0.11.0'
-    pod 'SubwayStations', git: 'https://github.com/schrockblock/subway-stations'
+    pod 'SubwayStations'
     pod "GTFSStations", :path => "../"
 end
 
+target 'GTFS Stations' do
+    import_pods
+end
+
 target 'GTFS StationsTests' do
+    import_pods
     pod 'Quick'
     pod 'Nimble'
 end
-

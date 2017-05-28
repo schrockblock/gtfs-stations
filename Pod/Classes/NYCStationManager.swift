@@ -29,20 +29,22 @@ open class NYCStationManager: NSObject, StationManager {
         
         do {
             var stationIds = Array<String>()
-            for stopRow in try dbManager.database.prepare("SELECT stop_name, stop_id, parent_station FROM stops WHERE location_type = 1") {
+            for stopRow in try dbManager.database.prepare("SELECT stop_name, stop_id, parent_station, stop_lat, stop_lon FROM stops WHERE location_type = 1") {
                 let stop = NYCStop(name: stopRow[0] as! String, objectId: stopRow[1] as! String, parentId: stopRow[2] as? String)
+                let stopLat = stopRow[3] as! Double
+                let stopLon = stopRow[4] as! Double
                 if !stationIds.contains(stop.objectId) {
                     let station = NYCStation(name: stop.name)
                     station.stops.append(stop)
                     stationIds.append(stop.objectId)
-                    let stationName = station.name.replacingOccurrences(of: "'s", with: "", options: NSString.CompareOptions.caseInsensitive, range: nil)
-                    if let queryForName = queryForNameArray(stationName.components(separatedBy: NSCharacterSet.whitespaces)) {
-                        for parentRow in try dbManager.database.prepare("SELECT stop_name, stop_id, parent_station FROM stops WHERE location_type = 1" + queryForName) {
-                            let parent = NYCStop(name: parentRow[0] as! String, objectId: parentRow[1] as! String, parentId: parentRow[2] as? String)
-                            if station == NYCStation(name: parent.name) {
-                                station.stops.append(parent)
-                                stationIds.append(parent.objectId)
-                            }
+                    
+                    let partial = stopBetweenQueryPartial(column: "stop_lat", coordinate: stopLat) + stopBetweenQueryPartial(column: "stop_lon", coordinate: stopLon)
+                    let rows = try dbManager.database.prepare("SELECT stop_name, stop_id, parent_station FROM stops WHERE location_type = 1" + partial)
+                    for parentRow in rows {
+                        let parent = NYCStop(name: parentRow[0] as! String, objectId: parentRow[1] as! String, parentId: parentRow[2] as? String)
+                        if station == NYCStation(name: parent.name) {
+                            station.stops.append(parent)
+                            stationIds.append(parent.objectId)
                         }
                     }
                     
@@ -118,6 +120,12 @@ open class NYCStationManager: NSObject, StationManager {
             
         }
         return routeIds
+    }
+    
+    func stopBetweenQueryPartial(column: String, coordinate: Double) -> String {
+        var partial = " AND " + column + " < " + String(coordinate + 0.005)
+        partial += " AND " + column + " > " + String(coordinate - 0.005)
+        return partial
     }
     
     func dateToTime(_ time: Date!) -> String{
