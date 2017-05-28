@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
                        DESC
   s.homepage         = "https://github.com/schrockblock/gtfs-stations"
   s.license          = 'MIT'
-  s.author           = { "Elliot" => "ephherd@gmail.com" }
+  s.author           = { "Elliot" => "" }
   s.source           = { :git => "https://github.com/schrockblock/gtfs-stations.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/schrockblock'
 
@@ -29,4 +29,5 @@ Pod::Spec.new do |s|
   #s.module_map = 'Pod/Classes/module.modulemap'
 
   s.dependency 'SQLite.swift'
+  s.dependency 'SubwayStations'
 end
