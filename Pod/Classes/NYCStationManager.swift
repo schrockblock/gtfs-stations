@@ -103,6 +103,36 @@ open class NYCStationManager: NSObject, StationManager {
         return predictions
     }
     
+    open func stationsForRoute(_ route: Route) -> Array<Station>? {
+        var stations = Array<Station>()
+        do {
+            let sqlString = "SELECT parent_station FROM stops " +
+                "INNER JOIN stop_times ON stop_times.stop_id = stops.stop_id " +
+                "INNER JOIN trips ON stop_times.trip_id = trips.trip_id " +
+                "WHERE trips.route_id = ? AND trips.direction_id = 0 " +
+                "GROUP BY stops.parent_station"
+            for stopRow in try dbManager.database.prepare(sqlString, [route.objectId]) {
+                let parentId = stopRow[0] as? String
+                for station in allStations {
+                    var foundOne = false
+                    for stop in station.stops {
+                        if stop.objectId == parentId {
+                            stations.append(station)
+                            foundOne = true
+                            break
+                        }
+                    }
+                    if foundOne {
+                        break
+                    }
+                }
+            }
+        }catch _ {
+            
+        }
+        return stations
+    }
+    
     open func routeIdsForStation(_ station: Station) -> Array<String> {
         var routeIds = Array<String>()
         do {

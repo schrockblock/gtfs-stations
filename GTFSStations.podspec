@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "GTFSStations"
-  s.version          = "0.1.0"
+  s.version          = "0.2.0"
   s.summary          = "GTFS Stations takes GTFS data and organizes it into stations"
   s.description      = <<-DESC
                        Take a look at StationManager. This will allow you to get stations and predictions within a given time of your the date you pass in.
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.license          = 'MIT'
   s.author           = { "Elliot" => "" }
   s.source           = { :git => "https://github.com/schrockblock/gtfs-stations.git", :tag => s.version.to_s }
-  s.social_media_url = 'https://twitter.com/schrockblock'
+  s.social_media_url = 'https://twitter.com/elliot_schrock'
 
   s.requires_arc = true
 

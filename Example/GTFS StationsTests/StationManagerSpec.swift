@@ -60,6 +60,16 @@ class StationManagerSpec: QuickSpec {
                     }
                 }
                 
+                it("returns all stations for a route") {
+                    let route = NYCRoute(objectId: "A")
+                    let stations = stationManager.stationsForRoute(route)
+                    expect(stations).toNot(beNil())
+                    if let theStations = stations {
+                        expect(theStations.count > 0).to(beTruthy())
+                        expect(theStations.first?.name).to(equal("Inwood - 207 St"))
+                    }
+                }
+                
                 it("has stations which all have names") {
                     if let stations = allStations {
                         for station in stations {
