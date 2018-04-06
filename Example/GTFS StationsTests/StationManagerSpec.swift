@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Elliot Schrock. All rights reserved.
 //
 
-import GTFS_Stations
+import GTFSStations
 import Quick
 import Nimble
 import SubwayStations
@@ -56,8 +56,12 @@ class StationManagerSpec: QuickSpec {
                 it("returns all stations") {
                     expect(allStations).toNot(beNil())
                     if let stations = allStations {
-                        expect(stations.count > 350).to(beTruthy())
+                        expect(stations.count).to(beGreaterThan(350))
                     }
+                }
+                
+                it("returns all transfer stations") {
+                    expect(stationManager.transferStations.count).to(beLessThan(stationManager.allStations.count))
                 }
                 
                 it("returns all stations for a route") {

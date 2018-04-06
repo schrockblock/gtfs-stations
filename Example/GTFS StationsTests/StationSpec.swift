@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Elliot Schrock. All rights reserved.
 //
 
-import GTFS_Stations
+import GTFSStations
 import Quick
 import Nimble
 import SubwayStations
@@ -17,14 +17,7 @@ class StationSpec: QuickSpec {
             
             it("is equal when names match") {
                 let firstStation = NYCStation(name: "Union")
-                let secondStation = NYCStation(name: "union")
-                
-                expect(firstStation == secondStation).to(beTruthy())
-            }
-            
-            it("is equal when names are word permutations of eachother") {
-                let firstStation = NYCStation(name: "14th Union")
-                let secondStation = NYCStation(name: "union 14th")
+                let secondStation = NYCStation(name: "Union")
                 
                 expect(firstStation == secondStation).to(beTruthy())
             }

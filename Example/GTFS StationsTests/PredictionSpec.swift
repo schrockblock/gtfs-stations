@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Elliot Schrock. All rights reserved.
 //
 
-import GTFS_Stations
+import GTFSStations
 import Quick
 import Nimble
 import SubwayStations

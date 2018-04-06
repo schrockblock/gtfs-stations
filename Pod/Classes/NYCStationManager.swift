@@ -16,8 +16,9 @@ open class NYCStationManager: NSObject, StationManager {
             let lazyManager = DBManager(sourcePath: self.sourceFilePath)
             return lazyManager
         }()
-    open var allStations: Array<Station> = Array<Station>()
-    open var routes: Array<Route> = Array<Route>()
+    open var allStations: [Station] = [Station]()
+    open var transferStations: [Station] = [Station]()
+    open var routes: [Route] = [Route]()
     open var timeLimitForPredictions: Int32 = 20
     
     public init(sourceFilePath: String?) throws {
@@ -29,28 +30,22 @@ open class NYCStationManager: NSObject, StationManager {
         
         do {
             var stationIds = Array<String>()
-            for stopRow in try dbManager.database.prepare("SELECT stop_name, stop_id, parent_station, stop_lat, stop_lon FROM stops WHERE location_type = 1") {
+            let parentStops = try dbManager.database.prepare("SELECT stop_name, stop_id, parent_station, stop_lat, stop_lon FROM stops WHERE location_type = 1")
+            for stopRow in parentStops {
                 let stop = NYCStop(name: stopRow[0] as! String, objectId: stopRow[1] as! String, parentId: stopRow[2] as? String)
-                let stopLat = stopRow[3] as! Double
-                let stopLon = stopRow[4] as! Double
                 if !stationIds.contains(stop.objectId) {
-                    let station = NYCStation(name: stop.name)
-                    station.stops.append(stop)
+                    let station = stationForParentStop(stop: stop)
                     stationIds.append(stop.objectId)
                     
-                    let partial = stopBetweenQueryPartial(column: "stop_lat", coordinate: stopLat) + stopBetweenQueryPartial(column: "stop_lon", coordinate: stopLon)
-                    let rows = try dbManager.database.prepare("SELECT stop_name, stop_id, parent_station FROM stops WHERE location_type = 1" + partial)
-                    for parentRow in rows {
-                        let parent = NYCStop(name: parentRow[0] as! String, objectId: parentRow[1] as! String, parentId: parentRow[2] as? String)
-                        if station == NYCStation(name: parent.name) {
-                            station.stops.append(parent)
-                            stationIds.append(parent.objectId)
+                    if !station.stops.isEmpty {
+                        if allStations.filter({ ($0 as! NYCStation) == (station as! NYCStation) }).count == 0 {
+                            allStations.append(station)
                         }
                     }
-                    
-                    allStations.append(station)
                 }
             }
+            
+            transferStations = allStations.filter { $0.stops.count > 1 }
             
             for routeRow in try dbManager.database.prepare("SELECT route_id FROM routes") {
                 let route = NYCRoute(objectId: routeRow[0] as! String)
@@ -71,7 +66,7 @@ open class NYCStationManager: NSObject, StationManager {
         
         do {
             if let stops = try stopsForStation(station) {
-                let timesQuery = "SELECT trip_id, departure_time FROM stop_times WHERE stop_id IN (" + questionMarksForStopArray(stops)! + ") AND departure_time BETWEEN ? AND ?"
+                let timesQuery = "SELECT trip_id, departure_time FROM stop_times WHERE stop_id IN (" + questionMarksForArray(stops)! + ") AND departure_time BETWEEN ? AND ?"
                 var stopIds: [Binding?] = stops.map({ (stop: Stop) -> Binding? in
                     stop.objectId as Binding
                 })
@@ -106,12 +101,13 @@ open class NYCStationManager: NSObject, StationManager {
     open func stationsForRoute(_ route: Route) -> Array<Station>? {
         var stations = Array<Station>()
         do {
-            let sqlString = "SELECT parent_station FROM stops " +
+            let sqlString = "SELECT stops.parent_station,stop_times.stop_sequence FROM stops " +
                 "INNER JOIN stop_times ON stop_times.stop_id = stops.stop_id " +
                 "INNER JOIN trips ON stop_times.trip_id = trips.trip_id " +
-                "WHERE trips.route_id = ? AND trips.direction_id = 0 " +
-                "GROUP BY stops.parent_station"
-            for stopRow in try dbManager.database.prepare(sqlString, [route.objectId]) {
+                "WHERE trips.route_id = ? AND trips.direction_id = 0 AND stop_times.departure_time BETWEEN ? AND ? " +
+                "GROUP BY stops.parent_station " +
+                "ORDER BY stop_times.stop_sequence DESC "
+            for stopRow in try dbManager.database.prepare(sqlString, [route.objectId, "10:00:00", "15:00:00"]) {
                 let parentId = stopRow[0] as? String
                 for station in allStations {
                     var foundOne = false
@@ -137,7 +133,7 @@ open class NYCStationManager: NSObject, StationManager {
         var routeIds = Array<String>()
         do {
             if let stops = try stopsForStation(station) {
-                let sqlStatementString = "SELECT trips.route_id FROM trips INNER JOIN stop_times ON stop_times.trip_id = trips.trip_id WHERE stop_times.stop_id IN (" + questionMarksForStopArray(stops)! + ") GROUP BY trips.route_id"
+                let sqlStatementString = "SELECT trips.route_id FROM trips INNER JOIN stop_times ON stop_times.trip_id = trips.trip_id WHERE stop_times.stop_id IN (" + questionMarksForArray(stops)! + ") GROUP BY trips.route_id"
                 let sqlStatement = try dbManager.database.prepare(sqlStatementString)
                 let stopIds: [Binding?] = stops.map({ (stop: Stop) -> Binding? in
                     stop.objectId as Binding
@@ -150,6 +146,26 @@ open class NYCStationManager: NSObject, StationManager {
             
         }
         return routeIds
+    }
+    
+    func stationForParentStop(stop: Stop) -> Station {
+        let station = NYCStation(name: stop.name)
+        station.primaryId = stop.objectId
+        do {
+            let idStmt = "SELECT from_id, to_id FROM transfer WHERE from_id = '\(stop.objectId!)'"
+            var ids = [Binding?]()
+            for row in try dbManager.database.prepare(idStmt) {
+                ids.append(row[1])
+            }
+            
+            let statement = "SELECT stop_name, stop_id, parent_station FROM stops WHERE stop_id IN ( \(questionMarksForArray(ids)!) )"
+            let sql = try dbManager.database.prepare(statement)
+            let stops = sql.bind(ids).map { NYCStop(name: $0[0] as! String, objectId: $0[1] as! String, parentId: $0[2] as? String) }
+            station.stops = stops
+        } catch _ {
+            
+        }
+        return station
     }
     
     func stopBetweenQueryPartial(column: String, coordinate: Double) -> String {
@@ -173,7 +189,7 @@ open class NYCStationManager: NSObject, StationManager {
         return formatter.date(from: timeString)
     }
     
-    func questionMarksForStopArray(_ array: Array<Stop>?) -> String?{
+    func questionMarksForArray(_ array: Array<Any>?) -> String?{
         var qMarks: String = "?"
         if let stops = array {
             if stops.count > 1 {

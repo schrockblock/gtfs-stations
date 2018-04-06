@@ -15,31 +15,39 @@ open class NYCRouteColorManager: NSObject, RouteColorManager {
         var color: UIColor = UIColor.darkGray
         
         if ["1","2","3"].contains(routeId) {
-            color = UIColor(rgba: "#ED3B43")
+            color = UIColor(rgba: "#EE352E")
         }
         
         if ["4","5","5X","6","6X"].contains(routeId) {
-            color = UIColor(rgba: "#00A55E")
+            color = UIColor(rgba: "#00933C")
         }
         
         if ["7","7X"].contains(routeId) {
-            color = UIColor(rgba: "#A23495")
+            color = UIColor(rgba: "#B933AD")
         }
         
         if ["A","C","E"].contains(routeId) {
-            color = UIColor(rgba: "#006BB7")
+            color = UIColor(rgba: "#0039A6")
         }
         
         if ["B","D","F","M"].contains(routeId) {
-            color = UIColor(rgba: "#F58120")
+            color = UIColor(rgba: "#FF6319")
+        }
+        
+        if routeId == "G" {
+            color = UIColor(rgba: "#6CBE45")
+        }
+        
+        if routeId == "L" {
+            color = UIColor(rgba: "#A7A9AC")
         }
         
         if ["N","Q","R","W"].contains(routeId) {
-            color = UIColor(rgba: "#FFD51D")
+            color = UIColor(rgba: "#FCCC0A")
         }
         
-        if ["JZ"].contains(routeId) {
-            color = UIColor(rgba: "#B1730E")
+        if ["J","Z","JZ"].contains(routeId) {
+            color = UIColor(rgba: "#996633")
         }
         
         return color
