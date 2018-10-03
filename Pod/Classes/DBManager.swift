@@ -10,13 +10,13 @@ import UIKit
 import SQLite
 
 open class DBManager: NSObject {
-    var sourcePath: String!
+    @objc var sourcePath: String!
     lazy var database: Connection = try! {
         let lazyDatabase = try Connection(self.sourcePath)
         return lazyDatabase
     }()
     
-    init(sourcePath: String!) {
+    @objc init(sourcePath: String!) {
         super.init()
         self.sourcePath = sourcePath
     }

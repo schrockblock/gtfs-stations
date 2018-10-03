@@ -41,15 +41,11 @@ class StationManagerSpec: QuickSpec {
                 }
                 
                 it("returns route ids for a station") {
-                    do {
-                        let firstStation = allStations?.first
-                        expect(firstStation).notTo(beNil())
-                        if let station = firstStation {
-                            let routeIds = try stationManager.routeIdsForStation(station)
-                            expect(routeIds.count).notTo(equal(0))
-                        }
-                    }catch {
-                        expect(true).to(beFalse())
+                    let firstStation = allStations?.first
+                    expect(firstStation).notTo(beNil())
+                    if let station = firstStation {
+                        let routeIds = stationManager.routeIdsForStation(station)
+                        expect(routeIds.count).notTo(equal(0))
                     }
                 }
                 
@@ -57,6 +53,21 @@ class StationManagerSpec: QuickSpec {
                     expect(allStations).toNot(beNil())
                     if let stations = allStations {
                         expect(stations.count).to(beGreaterThan(350))
+                    }
+                }
+                
+                it("includes Central Park North") {
+                    expect(allStations).toNot(beNil())
+                    if let stations = allStations {
+                        expect(stations.filter { $0.name.contains("Central Park North")}.count).to(beGreaterThan(0))
+                    }
+                }
+                
+                it("includes 135 on the 2/3") {
+                    expect(allStations).toNot(beNil())
+                    
+                    if let stations = allStations {
+                        expect(stations.filter { $0.name.contains("135")}.count).to(beGreaterThan(1))
                     }
                 }
                 
@@ -89,7 +100,7 @@ class StationManagerSpec: QuickSpec {
                         if let stations = allStations {
                             for station in stations {
                                 let date = NSDate(timeIntervalSince1970:1434217843)
-                                let stationPredictions: Array<Prediction>? = try stationManager.predictions(station, time: date as Date!)
+                                let stationPredictions: Array<Prediction>? = stationManager.predictions(station, time: date as Date)
                                 expect(stationPredictions).toNot(beNil())
                                 if let predictions = stationPredictions {
                                     expect(predictions.count > 0).to(beTruthy())

@@ -11,17 +11,17 @@ import SQLite
 import SubwayStations
 
 open class NYCStationManager: NSObject, StationManager {
-    open var sourceFilePath: String?
-    lazy var dbManager: DBManager = {
+    @objc open var sourceFilePath: String?
+    @objc lazy var dbManager: DBManager = {
             let lazyManager = DBManager(sourcePath: self.sourceFilePath)
             return lazyManager
         }()
     open var allStations: [Station] = [Station]()
     open var transferStations: [Station] = [Station]()
     open var routes: [Route] = [Route]()
-    open var timeLimitForPredictions: Int32 = 20
+    @objc open var timeLimitForPredictions: Int32 = 20
     
-    public init(sourceFilePath: String?) throws {
+    @objc public init(sourceFilePath: String?) throws {
         super.init()
         
         if let file = sourceFilePath {
@@ -161,26 +161,32 @@ open class NYCStationManager: NSObject, StationManager {
             let statement = "SELECT stop_name, stop_id, parent_station FROM stops WHERE stop_id IN ( \(questionMarksForArray(ids)!) )"
             let sql = try dbManager.database.prepare(statement)
             let stops = sql.bind(ids).map { NYCStop(name: $0[0] as! String, objectId: $0[1] as! String, parentId: $0[2] as? String) }
-            station.stops = stops
+            if stops.count == 0 {
+                let primaryId: String = stop.objectId
+                let ids = [ "\(primaryId)N", "\(primaryId)S" ]
+                station.stops = ids.map { NYCStop(name: "", objectId: $0, parentId: primaryId) }
+            } else {
+                station.stops = stops
+            }
         } catch _ {
             
         }
         return station
     }
     
-    func stopBetweenQueryPartial(column: String, coordinate: Double) -> String {
+    @objc func stopBetweenQueryPartial(column: String, coordinate: Double) -> String {
         var partial = " AND " + column + " < " + String(coordinate + 0.005)
         partial += " AND " + column + " > " + String(coordinate - 0.005)
         return partial
     }
     
-    func dateToTime(_ time: Date!) -> String{
+    @objc func dateToTime(_ time: Date!) -> String{
         let formatter: DateFormatter = DateFormatter()
         formatter.dateFormat = "HH:mm:ss"
         return formatter.string(from: time)
     }
     
-    func timeToDate(_ time: String!, referenceDate: Date!) -> Date?{
+    @objc func timeToDate(_ time: String!, referenceDate: Date!) -> Date?{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YYYY-MM-DD "
         let formatter: DateFormatter = DateFormatter()
@@ -189,7 +195,7 @@ open class NYCStationManager: NSObject, StationManager {
         return formatter.date(from: timeString)
     }
     
-    func questionMarksForArray(_ array: Array<Any>?) -> String?{
+    @objc func questionMarksForArray(_ array: Array<Any>?) -> String?{
         var qMarks: String = "?"
         if let stops = array {
             if stops.count > 1 {
@@ -205,7 +211,7 @@ open class NYCStationManager: NSObject, StationManager {
         return qMarks
     }
     
-    func queryForNameArray(_ array: Array<String>?) -> String? {
+    @objc func queryForNameArray(_ array: Array<String>?) -> String? {
         var query = ""
         if let nameArray = array {
             for nameComponent in nameArray {

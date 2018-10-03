@@ -10,12 +10,12 @@ import UIKit
 import SubwayStations
 
 open class NYCStop: NSObject, Stop {
-    open var name: String!
-    open var objectId: String!
-    open var parentId: String!
+    @objc open var name: String!
+    @objc open var objectId: String!
+    @objc open var parentId: String!
     open var station: Station!
    
-    init(name: String!, objectId: String!, parentId: String?) {
+    @objc init(name: String!, objectId: String!, parentId: String?) {
         super.init()
         self.name = name
         self.objectId = objectId
