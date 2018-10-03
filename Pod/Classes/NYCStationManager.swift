@@ -244,9 +244,7 @@ open class NYCStationManager: NSObject, StationManager {
             let sql = try dbManager.database.prepare(statement)
             let stops = sql.bind(ids).map { NYCStop(name: $0[0] as! String, objectId: $0[1] as! String, parentId: $0[2] as? String) }
             if stops.count == 0 {
-                let primaryId: String = stop.objectId
-                let ids = [ "\(primaryId)N", "\(primaryId)S" ]
-                station.stops = ids.map { NYCStop(name: "", objectId: $0, parentId: primaryId) }
+                station.stops = [stop]
             } else {
                 station.stops = stops
             }
