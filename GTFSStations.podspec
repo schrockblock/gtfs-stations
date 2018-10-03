@@ -21,6 +21,10 @@ Pod::Spec.new do |s|
   s.social_media_url = 'https://twitter.com/elliot_schrock'
 
   s.requires_arc = true
+  
+  s.ios.deployment_target = '10.0'
+  
+  s.swift_version = '4.1'
 
   s.source_files = 'Pod/Classes/**/*.{h,m,swift}'
   #s.public_header_files = 'Pod/Classes/*.h'
