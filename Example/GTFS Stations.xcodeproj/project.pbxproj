@@ -11,6 +11,8 @@
 		490E66F9207735BF00E9F5D0 /* gtfs.db in Resources */ = {isa = PBXBuildFile; fileRef = 490E66F8207735BF00E9F5D0 /* gtfs.db */; };
 		490E66FA207735BF00E9F5D0 /* gtfs.db in Resources */ = {isa = PBXBuildFile; fileRef = 490E66F8207735BF00E9F5D0 /* gtfs.db */; };
 		491A05EB1DCFFEBD008624E9 /* GTFSStations.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 491A05EA1DCFFEBD008624E9 /* GTFSStations.podspec */; };
+		4941166722025DCA00AC677C /* NavigatorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4941166622025DCA00AC677C /* NavigatorSpec.swift */; };
+		494116712202684800AC677C /* GTFSDatabaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494116702202684800AC677C /* GTFSDatabaseSpec.swift */; };
 		496C47FD1B2900C70032FE1C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496C47FC1B2900C70032FE1C /* AppDelegate.swift */; };
 		496C48041B2900C70032FE1C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 496C48031B2900C70032FE1C /* Images.xcassets */; };
 		496C48071B2900C70032FE1C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 496C48051B2900C70032FE1C /* LaunchScreen.xib */; };
@@ -59,6 +61,9 @@
 /* Begin PBXFileReference section */
 		490E66F8207735BF00E9F5D0 /* gtfs.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = gtfs.db; sourceTree = SOURCE_ROOT; };
 		491A05EA1DCFFEBD008624E9 /* GTFSStations.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = GTFSStations.podspec; path = ../../GTFSStations.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		4941166622025DCA00AC677C /* NavigatorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigatorSpec.swift; sourceTree = "<group>"; };
+		494116702202684800AC677C /* GTFSDatabaseSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTFSDatabaseSpec.swift; sourceTree = "<group>"; };
+		494116762203596B00AC677C /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; name = .travis.yml; path = ../../.travis.yml; sourceTree = "<group>"; };
 		496C47F71B2900C70032FE1C /* GTFS Stations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GTFS Stations.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		496C47FB1B2900C70032FE1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		496C47FC1B2900C70032FE1C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -149,6 +154,7 @@
 		496C47F91B2900C70032FE1C /* GTFS Stations */ = {
 			isa = PBXGroup;
 			children = (
+				494116762203596B00AC677C /* .travis.yml */,
 				491A05EA1DCFFEBD008624E9 /* GTFSStations.podspec */,
 				496C47FC1B2900C70032FE1C /* AppDelegate.swift */,
 				4997ED2E1B6460D300AD94EB /* RelativeTime */,
@@ -176,6 +182,8 @@
 			isa = PBXGroup;
 			children = (
 				49D0A53A1B2C83CC00CBC8D4 /* StationManagerSpec.swift */,
+				494116702202684800AC677C /* GTFSDatabaseSpec.swift */,
+				4941166622025DCA00AC677C /* NavigatorSpec.swift */,
 				49D535A21B69DADE0087D368 /* StationSpec.swift */,
 				49D535A41B69E8F70087D368 /* PredictionSpec.swift */,
 				496C48101B2900C70032FE1C /* Supporting Files */,
@@ -482,9 +490,11 @@
 			files = (
 				49D0A53B1B2C83CC00CBC8D4 /* StationManagerSpec.swift in Sources */,
 				49D535A51B69E8F70087D368 /* PredictionSpec.swift in Sources */,
+				4941166722025DCA00AC677C /* NavigatorSpec.swift in Sources */,
 				49D535A31B69DADE0087D368 /* StationSpec.swift in Sources */,
 				498EE4F01B6556E000ACB842 /* DBManager.swift in Sources */,
 				498EE51A1B65580300ACB842 /* NSDate+RelativeTime.m in Sources */,
+				494116712202684800AC677C /* GTFSDatabaseSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

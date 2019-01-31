@@ -260,7 +260,7 @@ open class NYCStationManager: NSObject, StationManager {
         return partial
     }
     
-    @objc func dateToTime(_ time: Date!) -> String{
+    @objc func dateToTime(_ time: Date!) -> String {
         let formatter: DateFormatter = DateFormatter()
         formatter.dateFormat = "HH:mm:ss"
         return formatter.string(from: time)
