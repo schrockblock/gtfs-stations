@@ -24,7 +24,7 @@ open class NYCNavigator {
     var db: NYCGTFSDatabase = NYCGTFSDatabase()
     
     public init() {
-        let path = Bundle.main.path(forResource: "gtfs", ofType: "db")
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/nav.db"
         db.sourceFilePath = path
     }
     
@@ -36,12 +36,12 @@ open class NYCNavigator {
     }
     
     open func getStationsAndTripsBetween(_ attemptedStations: inout [Int],
-                                    _ successStations: inout [Int: Int],
-                                    _ tripsCache: inout [Int: [Trip]],
-                                    _ first: Station,
-                                    _ second: Station,
-                                    _ callback: ProgressCallback?) -> ([Station], [Trip]) {
-//        callback.onProgressUpdate("first: " + first.name)
+                                         _ successStations: inout [Int: Int],
+                                         _ tripsCache: inout [Int: [Trip]],
+                                         _ first: Station,
+                                         _ second: Station,
+                                         _ callback: ProgressCallback?) -> ([Station], [Trip]) {
+        //        callback.onProgressUpdate("first: " + first.name)
         
         var newAttemptedStations = attemptedStations
         var stationsAndTrips: ([Station], [Trip]) = ([Station](), [Trip]())
@@ -57,7 +57,7 @@ open class NYCNavigator {
         let stationsToThere = stationsBetween(first, second, trips, callback)
         
         if stationsToThere.1 != nil {
-//            callback.onProgressUpdate("  trip found!")
+            //            callback.onProgressUpdate("  trip found!")
             return (stationsToThere.0, [stationsToThere.1!])
         }
         
@@ -82,7 +82,7 @@ open class NYCNavigator {
             
             // sort transfers by distance to `first`
             transferTimes.sort { (one, two) -> Bool in
-                return abs(one.stopSequence! - centerIndex) - abs(two.stopSequence! - centerIndex) > 0
+                return abs(one.stopSequence! - centerIndex) < abs(two.stopSequence! - centerIndex)
             }
             
             //            callback.onProgressUpdate("sorted")
@@ -107,20 +107,21 @@ open class NYCNavigator {
             let candidateStationsAndTrips = getStationsAndTripsBetween(&newAttemptedStations, &successStations, &tripsCache, transfer, second, callback)
             
             if !candidateStationsAndTrips.1.isEmpty {
-                let stationsBtn = stationsBetween(first, transfer, trips, callback)
-                var stations = stationsBtn.0
-                stations.append(contentsOf: candidateStationsAndTrips.0)
-                var totalTrips = [Trip]()
-                totalTrips.append(stationsBtn.1!)
-                totalTrips.append(contentsOf: candidateStationsAndTrips.1)
-                let totals = (stations, totalTrips)
-                if stationsAndTrips.1.isEmpty {
-                    stationsAndTrips = totals
-                } else {
-                    let totalComplexity = complexity(totals)
-                    let oldComplexity = complexity(stationsAndTrips)
-                    if totalComplexity <= oldComplexity {
+                var (stations, optTrip) = stationsBetween(first, transfer, trips, callback)
+                if let trip = optTrip {
+                    stations.append(contentsOf: candidateStationsAndTrips.0)
+                    var totalTrips = [Trip]()
+                    totalTrips.append(trip)
+                    totalTrips.append(contentsOf: candidateStationsAndTrips.1)
+                    let totals = (stations, totalTrips)
+                    if stationsAndTrips.1.isEmpty {
                         stationsAndTrips = totals
+                    } else {
+                        let totalComplexity = complexity(totals)
+                        let oldComplexity = complexity(stationsAndTrips)
+                        if totalComplexity <= oldComplexity {
+                            stationsAndTrips = totals
+                        }
                     }
                 }
             }
@@ -130,14 +131,14 @@ open class NYCNavigator {
     }
     
     open func complexity(_ stationsAndTrips: ([Station], [Trip])) -> Int {
-        return stationsAndTrips.0.count + stationsAndTrips.1.count * 5
+        return stationsAndTrips.0.count + stationsAndTrips.1.count * 4
     }
     
     open func totalStationsAndTrip(_ stationsAndTrip: ([Station], Trip?),
-                              _ stopTimes: [StopTime],
-                              _ centerIndex: Int64,
-                              _ sequenceOfTransfer: Int64,
-                              _ callback: ProgressCallback?) -> ([Station], Trip) {
+                                   _ stopTimes: [StopTime],
+                                   _ centerIndex: Int64,
+                                   _ sequenceOfTransfer: Int64,
+                                   _ callback: ProgressCallback?) -> ([Station], Trip) {
         var filteredStopTimes: [StopTime]
         if centerIndex < sequenceOfTransfer {
             filteredStopTimes = stopTimes.filter { (centerIndex...sequenceOfTransfer).contains($0.stopSequence) }
@@ -158,22 +159,23 @@ open class NYCNavigator {
     }
     
     open func relevantTransfersIn(_ stopTimes: [StopTime],
-                             _ attemptedStations: [Int],
-                             _ successStations: [Int: Int],
-                             _ relevantTransfers: inout [String: Station]) -> ([String: Station], [StopTime]) {
+                                  _ attemptedStations: [Int],
+                                  _ successStations: [Int: Int],
+                                  _ relevantTransfers: inout [String: Station]) -> ([String: Station], [StopTime]) {
         var irrelevantTransfers = transferStations!
         var transferTimes = [StopTime]()
         for stopTime in stopTimes {
             var didAddTransfer = false
+            var addedTransfer: Station? = nil
             for transfer in irrelevantTransfers {
                 if transfer.containsStopWithId(stopTime.stopId) && (!attemptedStations.contains(transfer.stopsHashCode()) || successStations.keys.contains(transfer.stopsHashCode())) {
+                    addedTransfer = transfer
                     relevantTransfers[stopTime.stopId] = transfer
-                    didAddTransfer = true
                     break
                 }
             }
-            if didAddTransfer {
-                irrelevantTransfers = irrelevantTransfers.filter({$0.name != relevantTransfers[stopTime.stopId]!.name })
+            if let transfer = addedTransfer {
+                irrelevantTransfers = irrelevantTransfers.filter({ ($0 as! NYCStation) != (transfer as! NYCStation) })
                 transferTimes.append(stopTime)
             }
         }
@@ -181,13 +183,13 @@ open class NYCNavigator {
     }
     
     open func stationsBetweenTransferAnd(_ second: Station,
-                                    _ attemptedStations: inout [Int],
-                                    _ tripsCache: inout [Int: [Trip]],
-                                    _ transferTimes: [StopTime],
-                                    _ centerIndex: Int64,
-                                    _ relevantTrips: inout [String: [Trip]],
-                                    _ relevantTransfers: [String: Station],
-                                    _ callback: ProgressCallback?) -> (([Station], Trip?), Int64) {
+                                         _ attemptedStations: inout [Int],
+                                         _ tripsCache: inout [Int: [Trip]],
+                                         _ transferTimes: [StopTime],
+                                         _ centerIndex: Int64,
+                                         _ relevantTrips: inout [String: [Trip]],
+                                         _ relevantTransfers: [String: Station],
+                                         _ callback: ProgressCallback?) -> (([Station], Trip?), Int64) {
         var sequenceOfTransfer: Int64 = -1
         for stopTime in transferTimes {
             // if not first station
@@ -196,12 +198,12 @@ open class NYCNavigator {
                 let transferStation = relevantTransfers[stopTime.stopId]!
                 if !attemptedStations.contains(transferStation.stopsHashCode()) {
                     attemptedStations.append(transferStation.stopsHashCode())
-//                    callback.onProgressUpdate("  considering ${transferStation.name}")
+                    //                    callback.onProgressUpdate("  considering ${transferStation.name}")
                     // get the trips through this station (which is a transfer)
                     let transferTrips = tripsThrough(transferStation)
                     tripsCache[transferStation.stopsHashCode()] = transferTrips
                     relevantTrips[stopTime.stopId] = transferTrips
-//                    callback.onProgressUpdate("  trips")
+                    //                    callback.onProgressUpdate("  trips")
                     // get the the stations and trip between the transfer station and second
                     let stationsFromTransfer = stationsBetween(transferStation, second, transferTrips, callback)
                     //                    callback.onProgressUpdate("stations")
@@ -226,13 +228,13 @@ open class NYCNavigator {
     }
     
     open func stationsBetween(_ first: Station,
-                         _ second: Station,
-                         _ trips: [Trip],
-                         _ callback: ProgressCallback?) -> ([Station], Trip?) {
+                              _ second: Station,
+                              _ trips: [Trip],
+                              _ callback: ProgressCallback?) -> ([Station], Trip?) {
         let secondStops = candidateStopIds(first, second)
         if !secondStops.isEmpty {
             let mutualTrips = db.tripsAlsoThroughStops(trips.map { $0.objectId }, secondStops)
-//            callback.onProgressUpdate("  mutual trips")
+            //            callback.onProgressUpdate("  mutual trips")
             if !mutualTrips.isEmpty {
                 return stationsBetweenOnTrips(first, second, mutualTrips, callback)
             }
@@ -251,9 +253,9 @@ open class NYCNavigator {
     }
     
     open func stationsBetweenOnTrips(_ first: Station,
-                                _ second: Station,
-                                _ mutualTrips: [Trip],
-                                _ callback: ProgressCallback?) -> ([Station], Trip?) {
+                                     _ second: Station,
+                                     _ mutualTrips: [Trip],
+                                     _ callback: ProgressCallback?) -> ([Station], Trip?) {
         var stationsAndTrip: ([Station], Trip?) = ([Station](), nil)
         for trip in mutualTrips {
             let stopTimes = db.stopTimesForTrip(trip.objectId)
@@ -281,10 +283,14 @@ open class NYCNavigator {
                 stationsCandidate.reverse()
             }
             
-            if let firstIndex = stationsCandidate.firstIndex(where: { $0 == first }), let secondIndex = stationsCandidate.firstIndex(where: { $0 == second }) {
-                let filteredStations = stationsCandidate.filter { outerStation -> Bool in return (firstIndex...secondIndex).contains(stationsCandidate.firstIndex(where: { (testStation) -> Bool in
+            if let firstIndex = stationsCandidate.firstIndex(where: { ($0 as! NYCStation) == (first as! NYCStation) }), let secondIndex = stationsCandidate.firstIndex(where: { ($0 as! NYCStation) == (second as! NYCStation) }) {
+                var filteredStations = stationsCandidate.filter { outerStation -> Bool in return (firstIndex...secondIndex).contains(stationsCandidate.firstIndex(where: { (testStation) -> Bool in
                     return testStation == outerStation
                 }) ?? -1) }
+                
+                if filteredStations.count > 0 && (filteredStations.first as! NYCStation) != (first as! NYCStation) {
+                    filteredStations.insert(first, at: 0)
+                }
                 
                 if filteredStations.count < stationsAndTrip.0.count || stationsAndTrip.0.count == 0 {
                     stationsAndTrip = (filteredStations, trip)

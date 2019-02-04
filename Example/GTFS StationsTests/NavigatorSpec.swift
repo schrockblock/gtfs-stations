@@ -45,6 +45,16 @@ class NavigatorSpec: QuickSpec {
                         expect(true).to(beFalse())
                     }
                 }
+                
+                it("can find shortest route between stops on different lines") {
+                    if let first = allStations?.first, let second = stationManager.stationsForSearchString("163")?.first {
+                        let (stations, trips) = nav.getStationsAndTripsBetween(first, second, nil)
+                        expect(stations.count).to(equal(12))
+                        expect(trips.count).to(equal(2))
+                    } else {
+                        expect(true).to(beFalse())
+                    }
+                }
             } catch {
                 expect(true).to(beFalse())
             }

@@ -75,6 +75,24 @@ class StationManagerSpec: QuickSpec {
                     expect(stationManager.transferStations.count).to(beLessThan(stationManager.allStations.count))
                 }
                 
+                it("has 168 as a transfer") {
+                    if let station = stationManager.stationsForSearchString("168")?.first {
+                        expect(stationManager.transferStations.filter { $0.name == station.name }.count).to(equal(1))
+                    }
+                }
+                
+                it("has Pennsylvania not as a transfer") {
+                    if let station = stationManager.stationsForSearchString("Pennsylvania")?.first {
+                        expect(stationManager.transferStations.filter { $0.name == station.name }.count).to(equal(0))
+                    }
+                }
+                
+                it("gives C for 163 routes") {
+                    if let station = stationManager.stationsForSearchString("163")?.first {
+                        expect(stationManager.routeIdsForStation(station).count).to(equal(2))
+                    }
+                }
+                
                 it("returns all stations for a route") {
                     let route = NYCRoute(objectId: "A")
                     let stations = stationManager.stationsForRoute(route)

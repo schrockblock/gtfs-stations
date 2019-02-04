@@ -13,9 +13,9 @@ import SubwayStations
 open class NYCStationManager: NSObject, StationManager {
     @objc open var sourceFilePath: String?
     @objc lazy var dbManager: DBManager = {
-            let lazyManager = DBManager(sourcePath: self.sourceFilePath)
-            return lazyManager
-        }()
+        let lazyManager = DBManager(sourcePath: self.sourceFilePath)
+        return lazyManager
+    }()
     open var allStations: [Station] = [Station]()
     open var transferStations: [Station] = [Station]()
     open var routes: [Route] = [Route]()
@@ -46,6 +46,7 @@ open class NYCStationManager: NSObject, StationManager {
             }
             
             transferStations = allStations.filter { $0.stops.count > 1 }
+            addSplitStations()
             
             for routeRow in try dbManager.database.prepare("SELECT route_id FROM routes") {
                 let route = NYCRoute(objectId: routeRow[0] as! String)
@@ -106,7 +107,7 @@ open class NYCStationManager: NSObject, StationManager {
                 "INNER JOIN trips ON stop_times.trip_id = trips.trip_id " +
                 "WHERE trips.route_id = ? AND trips.direction_id = 0 AND stop_times.departure_time BETWEEN ? AND ? " +
                 "GROUP BY stops.parent_station " +
-                "ORDER BY stop_times.stop_sequence DESC "
+            "ORDER BY stop_times.stop_sequence DESC "
             for stopRow in try dbManager.database.prepare(sqlString, [route.objectId, "10:00:00", "15:00:00"]) {
                 let parentId = stopRow[0] as? String
                 for station in allStations {
@@ -207,6 +208,27 @@ open class NYCStationManager: NSObject, StationManager {
             print(error)
         }
         return -1
+    }
+    
+    func addSplitStations() {
+        let allNycStations = allStations.filter { $0 is NYCStation } as! [NYCStation]
+        if let station = allNycStations.filter({ $0.primaryId == "120" }).first { transferStations.append(station) } // 96th23
+        if let station = allNycStations.filter({ $0.primaryId == "A25" }).first { transferStations.append(station) } // 50th
+        if let station = allNycStations.filter({ $0.primaryId == "D15" }).first { transferStations.append(station) } // 47-50th
+        if let station = allNycStations.filter({ $0.primaryId == "R14" }).first { transferStations.append(station) } // n57th
+        if let station = allNycStations.filter({ $0.primaryId == "224" }).first { transferStations.append(station) } // 135th23
+        if let station = allNycStations.filter({ $0.primaryId == "416" }).first { transferStations.append(station) } // 138th45
+        if let station = allNycStations.filter({ $0.primaryId == "621" }).first { transferStations.append(station) } // 125th456
+        if let station = allNycStations.filter({ $0.primaryId == "D21" }).first { transferStations.append(station) } // b'waybdfm
+        if let station = allNycStations.filter({ $0.primaryId == "R23" }).first { transferStations.append(station) } // canalnqr
+        if let station = allNycStations.filter({ $0.primaryId == "A34" }).first { transferStations.append(station) } // canalace
+        if let station = allNycStations.filter({ $0.primaryId == "137" }).first { transferStations.append(station) } // chambers123
+        if let station = allNycStations.filter({ $0.primaryId == "D22" }).first { transferStations.append(station) } // grandbd
+        if let station = allNycStations.filter({ $0.primaryId == "D43" }).first { transferStations.append(station) } // coneynq
+        if let station = allNycStations.filter({ $0.primaryId == "239" }).first { transferStations.append(station) } // franklinav2345
+        if let station = allNycStations.filter({ $0.primaryId == "G08" }).first { transferStations.append(station) } // foresthillsfm
+        if let station = allNycStations.filter({ $0.primaryId == "R11" }).first { transferStations.append(station) } // lexingtonnwr
+        if let station = allNycStations.filter({ $0.primaryId == "R41" }).first { transferStations.append(station) } // 59
     }
     
     func childStopIds(for station: Station) -> [String] {

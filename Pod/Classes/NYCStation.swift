@@ -17,18 +17,22 @@ open class NYCStation: Station {
     public init(name: String!) {
         self.name = name
     }
+}
+
+public func !=(lhs: NYCStation, other: NYCStation) -> Bool {
+    return !(lhs == other)
+}
+
+public func ==(lhs: NYCStation, other: NYCStation) -> Bool {
+    if lhs.name != other.name {
+        return false
+    }
     
-    public static func ==(lhs: NYCStation, other: NYCStation) -> Bool {
-        if lhs.name != other.name {
+    for stop in other.stops {
+        if lhs.stops.filter({ $0.objectId == stop.objectId }).count == 0 {
             return false
         }
-        
-        for stop in other.stops {
-            if lhs.stops.filter({ $0.objectId == stop.objectId }).count == 0 {
-                return false
-            }
-        }
-        
-        return true
     }
+    
+    return true
 }
