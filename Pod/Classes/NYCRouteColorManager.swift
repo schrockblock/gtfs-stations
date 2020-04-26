@@ -12,26 +12,26 @@ import SubwayStations
 open class NYCRouteColorManager: NSObject, RouteColorManager {
    
     @objc open func colorForRouteId(_ routeId: String!) -> UIColor {
-        var color: UIColor = UIColor.darkGray
+        var color: UIColor = UIColor(rgba: "#2F4F4F")
         
         if ["1","2","3"].contains(routeId) {
-            color = UIColor(rgba: "#EE352E")
+            color = UIColor(rgba: "#ED3B43")
         }
         
         if ["4","5","5X","6","6X"].contains(routeId) {
-            color = UIColor(rgba: "#00933C")
+            color = UIColor(rgba: "#00A55E")
         }
         
         if ["7","7X"].contains(routeId) {
-            color = UIColor(rgba: "#B933AD")
+            color = UIColor(rgba: "#A23495")
         }
         
         if ["A","C","E"].contains(routeId) {
-            color = UIColor(rgba: "#0039A6")
+            color = UIColor(rgba: "#006BB7")
         }
         
         if ["B","D","F","M"].contains(routeId) {
-            color = UIColor(rgba: "#FF6319")
+            color = UIColor(rgba: "#F58120")
         }
         
         if routeId == "G" {
@@ -39,15 +39,15 @@ open class NYCRouteColorManager: NSObject, RouteColorManager {
         }
         
         if routeId == "L" {
-            color = UIColor(rgba: "#A7A9AC")
+            color = UIColor(rgba: "#2F4F4F")
         }
         
         if ["N","Q","R","W"].contains(routeId) {
-            color = UIColor(rgba: "#FCCC0A")
+            color = UIColor(rgba: "#FFD51D")
         }
         
         if ["J","Z","JZ"].contains(routeId) {
-            color = UIColor(rgba: "#996633")
+            color = UIColor(rgba: "#B1730E")
         }
         
         return color
