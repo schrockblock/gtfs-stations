@@ -254,7 +254,6 @@
 				496C47F51B2900C70032FE1C /* Resources */,
 				491831C01B68710600EB8328 /* Embed Frameworks */,
 				362A416C3A95A6CF91DFE2F2 /* [CP] Embed Pods Frameworks */,
-				943F925B8523B8B4AF0352AF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -274,7 +273,6 @@
 				496C48081B2900C70032FE1C /* Sources */,
 				496C48091B2900C70032FE1C /* Frameworks */,
 				496C480A1B2900C70032FE1C /* Resources */,
-				405CB4B732FE000778603771 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -299,6 +297,7 @@
 				TargetAttributes = {
 					496C47F61B2900C70032FE1C = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = RF38GT6Y8H;
 						LastSwiftMigration = 0940;
 					};
 					496C480B1B2900C70032FE1C = {
@@ -313,6 +312,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -357,7 +357,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-GTFS Stations/Pods-GTFS Stations-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-GTFS Stations/Pods-GTFS Stations-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTFSStations/GTFSStations.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/SubwayStations/SubwayStations.framework",
@@ -370,37 +370,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GTFS Stations/Pods-GTFS Stations-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		405CB4B732FE000778603771 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GTFS StationsTests/Pods-GTFS StationsTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		943F925B8523B8B4AF0352AF /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GTFS Stations/Pods-GTFS Stations-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GTFS Stations/Pods-GTFS Stations-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		995CACD87F569FBB16A47035 /* [CP] Check Pods Manifest.lock */ = {
@@ -427,7 +397,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-GTFS StationsTests/Pods-GTFS StationsTests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-GTFS StationsTests/Pods-GTFS StationsTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTFSStations/GTFSStations.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/SubwayStations/SubwayStations.framework",
@@ -444,7 +414,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GTFS StationsTests/Pods-GTFS StationsTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GTFS StationsTests/Pods-GTFS StationsTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F255CA25D6A566EEA7D87E81 /* [CP] Check Pods Manifest.lock */ = {
@@ -572,6 +542,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "../Pod/Classes/GTFS Stations-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -620,6 +591,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "../Pod/Classes/GTFS Stations-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -630,6 +602,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = RF38GT6Y8H;
 				INFOPLIST_FILE = "GTFS Stations/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -639,7 +612,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "../Pod/Classes/GTFS Stations-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -649,6 +622,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = RF38GT6Y8H;
 				INFOPLIST_FILE = "GTFS Stations/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -657,7 +631,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "../Pod/Classes/GTFS Stations-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

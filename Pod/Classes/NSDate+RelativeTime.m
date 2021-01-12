@@ -67,6 +67,10 @@
         case NSCalendarUnitWeekOfMonth:
             [components setWeekOfMonth:increment];
             break;
+        case NSCalendarUnitNanosecond:
+            break;
+        default:
+            break;
     }
     
     return [calendar dateByAddingComponents:components toDate:self options:0];

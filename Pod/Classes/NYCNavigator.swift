@@ -165,7 +165,6 @@ open class NYCNavigator {
         var irrelevantTransfers = transferStations!
         var transferTimes = [StopTime]()
         for stopTime in stopTimes {
-            var didAddTransfer = false
             var addedTransfer: Station? = nil
             for transfer in irrelevantTransfers {
                 if transfer.containsStopWithId(stopTime.stopId) && (!attemptedStations.contains(transfer.stopsHashCode()) || successStations.keys.contains(transfer.stopsHashCode())) {

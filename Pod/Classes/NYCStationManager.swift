@@ -11,6 +11,8 @@ import SQLite
 import SubwayStations
 
 open class NYCStationManager: NSObject, StationManager {
+    
+    
     @objc open var sourceFilePath: String?
     @objc lazy var dbManager: DBManager = {
         let lazyManager = DBManager(sourcePath: self.sourceFilePath)
@@ -32,7 +34,7 @@ open class NYCStationManager: NSObject, StationManager {
             var stationIds = Array<String>()
             let parentStops = try dbManager.database.prepare("SELECT stop_name, stop_id, parent_station, stop_lat, stop_lon FROM stops WHERE location_type = 1")
             for stopRow in parentStops {
-                let stop = NYCStop(name: stopRow[0] as! String, objectId: stopRow[1] as! String, parentId: stopRow[2] as? String)
+                let stop = NYCStop(name: stopRow[0] as? String, objectId: stopRow[1] as? String, parentId: stopRow[2] as? String)
                 if !stationIds.contains(stop.objectId) {
                     let station = stationForParentStop(stop: stop)
                     stationIds.append(stop.objectId)
@@ -49,7 +51,7 @@ open class NYCStationManager: NSObject, StationManager {
             addSplitStations()
             
             for routeRow in try dbManager.database.prepare("SELECT route_id FROM routes") {
-                let route = NYCRoute(objectId: routeRow[0] as! String)
+                let route = NYCRoute(objectId: routeRow[0] as? String)
                 route.color = NYCRouteColorManager().colorForRouteId(route.objectId)
                 routes.append(route)
             }
@@ -72,7 +74,7 @@ open class NYCStationManager: NSObject, StationManager {
                     stop.objectId as Binding
                 })
                 stopIds.append(dateToTime(time))
-                stopIds.append(dateToTime((time as NSDate!).incrementUnit(NSCalendar.Unit.minute, by: timeLimitForPredictions)))
+                stopIds.append(dateToTime((time as NSDate).incrementUnit(NSCalendar.Unit.minute, by: timeLimitForPredictions)))
                 let stmt = try dbManager.database.prepare(timesQuery)
                 for timeRow in stmt.bind(stopIds) {
                     let tripId = timeRow[0] as! String
@@ -262,9 +264,9 @@ open class NYCStationManager: NSObject, StationManager {
                 ids.append(row[1])
             }
             
-            let statement = "SELECT stop_name, stop_id, parent_station FROM stops WHERE stop_id IN ( \(questionMarksForArray(ids)!) )"
+            let statement = "SELECT stop_name, stop_id, parent_station FROM stops WHERE stop_id IN ( \(questionMarksForArray(ids as Array<Any>)!) )"
             let sql = try dbManager.database.prepare(statement)
-            let stops = sql.bind(ids).map { NYCStop(name: $0[0] as! String, objectId: $0[1] as! String, parentId: $0[2] as? String) }
+            let stops = sql.bind(ids).map { NYCStop(name: $0[0] as? String, objectId: $0[1] as? String, parentId: $0[2] as? String) }
             if stops.count == 0 {
                 station.stops = [stop]
             } else {
@@ -304,8 +306,8 @@ open class NYCStationManager: NSObject, StationManager {
                 for _ in stops {
                     qMarks = qMarks + ",?"
                 }
-                let index = qMarks.characters.index(qMarks.endIndex, offsetBy: -2)
-                qMarks = qMarks.substring(to: index)
+                let index = qMarks.index(qMarks.endIndex, offsetBy: -2)
+                qMarks = String(qMarks.prefix(upTo: index))
             }
         }else{
             return nil
@@ -330,7 +332,7 @@ open class NYCStationManager: NSObject, StationManager {
         for parent in station.stops {
             do {
                 for relevantStop in try dbManager.database.prepare("SELECT stop_name, stop_id FROM stops WHERE parent_station = ?", [parent.objectId]){
-                    stops.append(NYCStop(name: relevantStop[0] as! String, objectId: relevantStop[1] as! String, parentId: parent.objectId))
+                    stops.append(NYCStop(name: relevantStop[0] as? String, objectId: relevantStop[1] as? String, parentId: parent.objectId))
                 }
             }catch _ {
                 

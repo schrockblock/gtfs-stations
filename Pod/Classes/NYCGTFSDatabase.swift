@@ -131,9 +131,9 @@ open class NYCGTFSDatabase {
                 ids.append(row[1])
             }
             
-            let statement = "SELECT stop_name, stop_id, parent_station FROM stops WHERE stop_id IN ( \(questionMarksForArray(ids)!) )"
+            let statement = "SELECT stop_name, stop_id, parent_station FROM stops WHERE stop_id IN ( \(questionMarksForArray(ids as Array<Any>)!) )"
             let sql = try dbManager.database.prepare(statement)
-            let stops = sql.bind(ids).map { NYCStop(name: $0[0] as! String, objectId: $0[1] as! String, parentId: $0[2] as? String) }
+            let stops = sql.bind(ids).map { NYCStop(name: $0[0] as? String, objectId: $0[1] as? String, parentId: $0[2] as? String) }
             if stops.count == 0 {
                 station.stops = [stop]
             } else {
@@ -153,7 +153,7 @@ open class NYCGTFSDatabase {
                     qMarks = qMarks + ",?"
                 }
                 let index = qMarks.index(qMarks.endIndex, offsetBy: -2)
-                qMarks = qMarks.substring(to: index)
+                qMarks = String(qMarks.prefix(upTo: index))
             }
         }else{
             return nil
