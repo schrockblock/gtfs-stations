@@ -297,7 +297,7 @@
 				TargetAttributes = {
 					496C47F61B2900C70032FE1C = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = RF38GT6Y8H;
+						DevelopmentTeam = HK6WSAR793;
 						LastSwiftMigration = 0940;
 					};
 					496C480B1B2900C70032FE1C = {
@@ -602,7 +602,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = RF38GT6Y8H;
+				DEVELOPMENT_TEAM = HK6WSAR793;
 				INFOPLIST_FILE = "GTFS Stations/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -622,7 +622,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = RF38GT6Y8H;
+				DEVELOPMENT_TEAM = HK6WSAR793;
 				INFOPLIST_FILE = "GTFS Stations/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -656,7 +656,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "../Pod/Classes/GTFS StationsTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GTFS Stations.app/GTFS Stations";
 			};
 			name = Debug;
@@ -676,7 +676,7 @@
 				PROVISIONING_PROFILE = "df034d6d-ca33-442a-a660-739a4ace7c16";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "../Pod/Classes/GTFS StationsTests-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GTFS Stations.app/GTFS Stations";
 			};
 			name = Release;

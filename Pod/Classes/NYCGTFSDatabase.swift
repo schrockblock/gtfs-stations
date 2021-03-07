@@ -75,13 +75,15 @@ open class NYCGTFSDatabase {
         let stopIdExp = Expression<String>("stop_id")
         let stopNameExp = Expression<String>("stop_name")
         let parentIdExp = Expression<String>("parent_station")
+        let latitudeExp = Expression<Double>("stop_lat")
+        let longitudeExp = Expression<Double>("stop_lon")
         
         let statement = stops.filter(stopIds.contains(stopIdExp))
         
         var stopResults = [NYCStop]()
         do {
             stopResults = try dbManager.database.prepare(statement).map({ (row) -> NYCStop in
-                return NYCStop(name: row[stopNameExp], objectId: row[stopIdExp], parentId: row[parentIdExp])
+                return NYCStop(name: row[stopNameExp], objectId: row[stopIdExp], parentId: row[parentIdExp], latitude: row[latitudeExp], longitude: row[longitudeExp])
             })
         } catch {
             print(error)
@@ -131,9 +133,9 @@ open class NYCGTFSDatabase {
                 ids.append(row[1])
             }
             
-            let statement = "SELECT stop_name, stop_id, parent_station FROM stops WHERE stop_id IN ( \(questionMarksForArray(ids as Array<Any>)!) )"
+            let statement = "SELECT stop_name, stop_id, parent_station, stop_lat, stop_lon FROM stops WHERE stop_id IN ( \(questionMarksForArray(ids as Array<Any>)!) )"
             let sql = try dbManager.database.prepare(statement)
-            let stops = sql.bind(ids).map { NYCStop(name: $0[0] as? String, objectId: $0[1] as? String, parentId: $0[2] as? String) }
+            let stops = sql.bind(ids).map { NYCStop(name: $0[0] as? String, objectId: $0[1] as? String, parentId: $0[2] as? String, latitude: $0[3] as! Double, longitude: $0[4] as! Double) }
             if stops.count == 0 {
                 station.stops = [stop]
             } else {

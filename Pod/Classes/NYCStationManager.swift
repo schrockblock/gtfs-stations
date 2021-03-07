@@ -34,7 +34,7 @@ open class NYCStationManager: NSObject, StationManager {
             var stationIds = Array<String>()
             let parentStops = try dbManager.database.prepare("SELECT stop_name, stop_id, parent_station, stop_lat, stop_lon FROM stops WHERE location_type = 1")
             for stopRow in parentStops {
-                let stop = NYCStop(name: stopRow[0] as? String, objectId: stopRow[1] as? String, parentId: stopRow[2] as? String)
+                let stop = NYCStop(name: stopRow[0] as? String, objectId: stopRow[1] as? String, parentId: stopRow[2] as? String, latitude: stopRow[3] as! Double, longitude: stopRow[4] as! Double)
                 if !stationIds.contains(stop.objectId) {
                     let station = stationForParentStop(stop: stop)
                     stationIds.append(stop.objectId)
@@ -183,7 +183,7 @@ open class NYCStationManager: NSObject, StationManager {
     }
     
     open func numberOfStopsBetween(_ station: Station, _ stopId: String, _ routeId: String, _ directionId: Int64) -> Int64 {
-        let otherStation = stationForParentStop(stop: NYCStop(name: "", objectId: stopId, parentId: nil))
+        let otherStation = stationForParentStop(stop: NYCStop(name: "", objectId: stopId, parentId: nil, latitude: 0, longitude: 0))
         let stopTimes = Table("stop_times")
         let trips = Table("trips")
         let sequenceExp = Expression<Int64>("stop_sequence")
@@ -264,9 +264,9 @@ open class NYCStationManager: NSObject, StationManager {
                 ids.append(row[1])
             }
             
-            let statement = "SELECT stop_name, stop_id, parent_station FROM stops WHERE stop_id IN ( \(questionMarksForArray(ids as Array<Any>)!) )"
+            let statement = "SELECT stop_name, stop_id, parent_station, stop_lat, stop_lon FROM stops WHERE stop_id IN ( \(questionMarksForArray(ids as Array<Any>)!) )"
             let sql = try dbManager.database.prepare(statement)
-            let stops = sql.bind(ids).map { NYCStop(name: $0[0] as? String, objectId: $0[1] as? String, parentId: $0[2] as? String) }
+            let stops = sql.bind(ids).map { NYCStop(name: $0[0] as? String, objectId: $0[1] as? String, parentId: $0[2] as? String, latitude: $0[3] as! Double, longitude: $0[4] as! Double) }
             if stops.count == 0 {
                 station.stops = [stop]
             } else {
@@ -331,8 +331,8 @@ open class NYCStationManager: NSObject, StationManager {
         var stops = Array<Stop>()
         for parent in station.stops {
             do {
-                for relevantStop in try dbManager.database.prepare("SELECT stop_name, stop_id FROM stops WHERE parent_station = ?", [parent.objectId]){
-                    stops.append(NYCStop(name: relevantStop[0] as? String, objectId: relevantStop[1] as? String, parentId: parent.objectId))
+                for relevantStop in try dbManager.database.prepare("SELECT stop_name, stop_id, stop_lat, stop_lon FROM stops WHERE parent_station = ?", [parent.objectId]){
+                    stops.append(NYCStop(name: relevantStop[0] as? String, objectId: relevantStop[1] as? String, parentId: parent.objectId, latitude: relevantStop[2] as! Double, longitude: relevantStop[3] as! Double))
                 }
             }catch _ {
                 

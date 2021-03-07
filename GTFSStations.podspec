@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "GTFSStations"
-  s.version          = "0.4.1"
+  s.version          = "0.4.2"
   s.summary          = "GTFS Stations takes GTFS data and organizes it into stations"
   s.description      = <<-DESC
                        Take a look at StationManager. This will allow you to get stations and predictions within a given time of your the date you pass in.
